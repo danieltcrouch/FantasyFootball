@@ -145,7 +145,7 @@ function getDraftSettings( $memberId )
 					scd.scd_defYds				AS scoring_defense_defYds,
 					st.st_count			AS teams_count,
 					st.st_userIndex		AS teams_userIndex,
-					GROUP_CONCAT(tn.tn_teamname separator ',') AS teams_teamnames
+					GROUP_CONCAT(tn.tn_teamName ORDER BY tn.tn_teamIndex ASC SEPARATOR ',') AS teams_teamnames
 				FROM members m
 				JOIN settingsGeneral sg ON m.s_id = sg.s_id
 				JOIN settingsLeague sl ON m.s_id = sl.s_id
