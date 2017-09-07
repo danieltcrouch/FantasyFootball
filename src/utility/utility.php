@@ -24,8 +24,6 @@ function getGUID()
 
 function convertToSettings( $flatSettings )
 {
-	echo json_encode($flatSettings);
-
 	$settings = [
 		'memberId'	=> $flatSettings['memberId'],
 		'settingsId'=> $flatSettings['settingsId'],
@@ -142,7 +140,7 @@ function convertToSettings( $flatSettings )
 
 function getTeamNames( $teamNames )
 {
-	return $teamNames; //todo - ensure this is returned in proper order
+	return explode( ",", $teamNames );
 }
 
 function getPlayerCountFromPositions( $positions )

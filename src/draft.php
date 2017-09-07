@@ -62,8 +62,8 @@
 	footer to php include
 	Convert all px to em
 	Ask Keith about organization
-
-	Number of teams, Order in Draft
+	Validate each field by input type
+	    String needs to not allow comma so that that it can be put into array
 
 	Layout:
 	Send to Draft page, have link to sandbox

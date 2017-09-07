@@ -145,7 +145,7 @@ function getDraftSettings( $memberId )
 					scd.scd_defYds				AS scoring_defense_defYds,
 					st.st_count			AS teams_count,
 					st.st_userIndex		AS teams_userIndex,
-					GROUP_CONCAT(tn.tn_teamName ORDER BY tn.tn_teamIndex ASC SEPARATOR ',') AS teams_teamnames
+					GROUP_CONCAT(tn.tn_teamName ORDER BY tn.tn_teamIndex ASC SEPARATOR ',') AS teams_teamNames
 				FROM members m
 				JOIN settingsGeneral sg ON m.s_id = sg.s_id
 				JOIN settingsLeague sl ON m.s_id = sl.s_id
@@ -160,11 +160,11 @@ function getDraftSettings( $memberId )
 					JOIN scoringDefense scd ON m.s_id = scd.s_id
 				JOIN settingsTeams st ON m.s_id = st.s_id
 					LEFT JOIN teamNames tn ON m.s_id = tn.s_id
-				WHERE m.m_id = '" . $memberId . "'" 
+				WHERE m.m_id = '" . $memberId . "'"
 				);
 	$mysqli->close();
 
-	return convertToSettings( $result );
+    return convertToSettings( $result->fetch_assoc() );
 }
 
 function getMySql()
