@@ -1,0 +1,27 @@
+<div id="auctionModal" class="modal">
+  <div class="modalContent">
+	<span id="close" class="close">&times;</span>
+	<div class="inputSection">
+		<label for="leagueCap">League Cap: </label><input type="number" style="width: 40px;" id="leagueCap" />
+	</div>
+	<div class="inputSection">
+		<label for="aav">AAV: </label>
+		<select id="aav">
+			<option value="espn">ESPN</option>
+			<option value="yahoo">Yahoo!</option>
+			<option value="random">Just Made up Numbers</option>
+		</select>
+	</div>
+	<button onclick="submitAuctionSettings()">Done</button>
+  </div>
+</div>
+
+<script>
+$(document).ready(function () {
+});
+
+function submitAuctionSettings()
+{
+	$("#auctionModal").hide();
+}
+</script>

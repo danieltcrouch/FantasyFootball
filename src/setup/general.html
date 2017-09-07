@@ -1,0 +1,18 @@
+<div class="tab" id="general">
+	<fieldset class="inputSection">
+		<legend>Draft Type</legend>
+		<input type="radio" name="draftType" id="standard" value="standard" checked><label for="standard"> Standard</label>
+		<input type="radio" name="draftType" id="auction" value="auction"><label for="auction"> Auction</label>
+		<br/><button class="smallButton" id="auctionButton" style="display: none;">Auction Settings</button>
+	</fieldset>
+	<div class="inputSection">
+		<label for="season">Season: </label><span id="season">Current Season</span>
+	</div>
+	<div class="inputSection">
+		<label for="positions">Positions: </label><span id="positions">IDP not included</span>
+	</div>
+	<div class="inputSection">
+		<label for="adp">ADP Source: </label><span id="adp">Autocalculated</span>
+	</div>
+	<button onclick="next()">Next</button>
+</div>
