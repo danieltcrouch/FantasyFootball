@@ -20,13 +20,14 @@
 	include_once( "utility/database.php" );
 
 	$id = ( isset($_GET['memberId']) ? $_GET['memberId'] : $_SESSION['memberId'] );
+    $_SESSION['memberId'] = $id;
 
 	$settings = json_encode( getDraftSettings( $id ) );
 	$teamCount = $settings['teams']['count'];
 	$teamNames = $settings['teams']['teamNames'];
-	$playerCount = getPlayerCountFromPositions( $settings['general']['positions'] );
 	$draftType = $settings['general']['draftType'];
-	$leagueCap = $settings['general']['leagueCap'];
+	$leagueCap = $settings['general']['leagueCap']; //todo - move this to JS
+	$leaguePositions = $settings['league']; //todo - move this to JS
 	
 	$players = json_encode( getPlayers() );
 	?>
@@ -36,101 +37,206 @@
 	</div>
 	<div class="navBar">
 		<span class="navPage" onclick="back()">Back</span>
+		<span class="navPage" onclick="back()">Sandbox</span>
 		<span class="navPage" onclick="back()">Sign-In</span>
 	</div>
 	
 	<div class="content">
 		<br/>
 		<label>Draft Type: </label><span id="draftType">standard</span><br/>
-		<span id="moneyDisplay"><label>User Assets: </label>$<span id="money">0</span></span><br/>
-		<label>Click a cell below.</label><br/><br/>
-		
-		<?php include("pages/player-tables.php"); ?>
-	</div>
-	
-	<?php include("modals/player-modal.html"); ?>
+		<label>Round: </label><span id="round">1</span><br/>
+		<label>Pick: </label><span id="pick">1</span><br/>
 
-	<div class="footerBanner">
-		<div class="footer">Fantasy Value Draft | <a href="/">About</a> | <a href="mailto:stephen.s.crouch@gmail.com">Contact</a></div>
+		<div id="standardDisplay">
+            <label>Active Team: </label><span id="team">You</span><br/>
+            <button onclick="displayInfo()">Other Info</button><br/>
+            <button onclick="fillOptimalPlayer()">Optimal Player</button><br/>
+
+            <div class="inputSection">
+                <input type="text" id="player" style="width: 60%;"/>
+            </div>
+
+            <label>Optimal Player: </label><span id="optimalPlayer">--</span>
+            <br/>
+            <br/>
+           	<button onclick="submitPlayerPick()">Submit</button>
+        </div>
+		<div id="auctionDisplay">
+            <label>User Assets: </label>$<span id="money">0</span><br/>
+            This draft type is still under construction.
+        </div>
+
+		<?php generateTables( $teamCount, $leaguePositions, $teamNames ); ?>
 	</div>
+
+    <?php include("view/footer.html"); ?>
+    <?php include("modals/info-modal.html"); ?>
 
 	<script>
 	/*
 	TODO:
 	Yardage is 100, 150, 200 for all but first
-	Instead of placeholders, have default values?
-	footer to php include
+	Set default values from ESPN (be able to dynamically set to other site's default values)
 	Convert all px to em
-	Ask Keith about organization
 	Validate each field by input type
 	    String needs to not allow comma so that that it can be put into array
-
-	Layout:
-	Send to Draft page, have link to sandbox
-	Send email with link to both and member ID
-	draft page (and sandbox) is relative to draft type
-	All pages should have "Undo"
-	    Standard
-	In order: enter team picks (display round and pick number and team Name)
-	Be able to see team names and their present picks
-	See your optimal team? (with bye? and pick?)
-	See your best pick (and make it selectable)
-	See next three top picks?
-    See various lists by position? (e.g. Best by VOR)
-    Display points?
-    Display PPP?
-	    Auction
-    ...
-        Sandbox
-    Auto Draft
+	Send email with link to draft page and member ID
 	*/
 	
 	var settings = <?php echo $settings; ?>;
+	var teams = <?php echo $teamNames; ?>;
 	var players = <?php echo $players; ?>;
-	var activeCell;
+
+	var optimalInfo;
+
+	var activeTeam;
+
+	var FINAL_PICK;
 	
 	$(document).ready(function () {
-		$("td").click(function () {
-			activeCell = this;
-			$("#playerModal").show();
-		});
+        $("#player").autocomplete( {source: players} );
+       	$("#player").keyup(function(e){
+       		if(e.keyCode == 13)
+       		{
+                submitPlayerPick();
+       		}
+       		if(e.keyCode == 9)
+       		{
+       			fillOptimalPlayer();
+       		}
+       	});
+
+        FINAL_PICK = teams.length * <?php echo getPlayerCountFromPositions( $leaguePositions ); ?>;
 		
-		setDraftType( "<?php echo $draftType ?>", <?php echo $leagueCap ?> );
+		setDraftType( "<?php echo $draftType ?>" );
 	});
-	
-	function setDraftType( type, money )
+
+    function setDraftType( type )
 	{
 		$("#draftType").text( "" + type );
 		if ( type == "auction" )
 		{
 			$("#moneyDisplay").show();
-			updateMoneyDisplay( money );
+			$("#standardDisplay").hide();
+            initiateAuction();
 		}
 		else
 		{
 			$("#moneyDisplay").hide();
+			$("#standardDisplay").show();
+            initiateStandard();
 		}
 	}
 
-	function payMoney( cost )
-	{
-		if ( $("#draftType").text() == "auction" )
-		{
-			var userIndex = settings.teams.userIndex;
-			var teamIndex = $( activeCell ).attr( 'id' ).split( "_" )[1];
-			if ( teamIndex == userIndex )
-			{
-				var money = parseInt( $("#money").text().trim() );
-				money -= cost;
-				updateMoneyDisplay( money );
-			}
-		}
-	}
+	//***AUCTION***//
 
-	function updateMoneyDisplay( money )
-	{
-		$("#money").text( "" + money );
-	}
+    function initiateAuction()
+    {
+        updateUserAssets( <?php echo $leagueCap; ?> );
+        //todo - under construction
+    }
+
+    /*function payMoney( cost )
+   	{
+   		if ( $("#draftType").text() == "auction" )
+   		{
+   			var userIndex = settings.teams.userIndex;
+   			var teamIndex = $( activeCell ).attr( 'id' ).split( "_" )[1];
+   			if ( teamIndex == userIndex )
+   			{
+   				var money = parseInt( $("#money").text().trim() );
+   				money -= cost;
+   				updateUserAssets( money );
+   			}
+   		}
+   	}*/
+
+   	function updateUserAssets( money )
+   	{
+   		$("#money").text( "" + money );
+   	}
+
+    //***STANDARD***//
+
+    function initiateStandard()
+    {
+        updatePickCount( 0 );
+        getNextPick();
+    }
+
+    function submitPlayerPick()
+    {
+        var player = $("#player").val().trim;
+        if ( isValidPlayerPick( player ) )
+        {
+            insertPlayer( player );
+            getNextPick();
+        }
+        else
+        {
+            alert( "You cannot choose this player." );
+        }
+    }
+
+    function insertPlayer( player )
+    {
+        //todo - get player position
+        //place player in that cell
+        //else place in bench
+        //else place in first available
+    }
+
+    function getNextPick()
+    {
+        var currentPick = parseInt( $("#pick").text().trim() );
+        if ( currentPick != FINAL_PICK )
+        {
+            incrementPickCount();
+
+            updateInfo();
+            $( "#optimalPlayer" ).text( optimalInfo.optimalPlayer );
+        }
+        else
+        {
+            $("#player").prop('disabled', true);
+        }
+    }
+
+    function incrementPickCount()
+    {
+        var pick = parseInt( $("#pick").text().trim() ) + 1;
+        updatePickCount( pick );
+    }
+
+    function updatePickCount( pick )
+    {
+        if ( pick % teams.length == 0 )
+        {
+            var round = pick / teams.length + 1;
+            $("#round").text( "" + round );
+        }
+        $("#pick").text( "" + pick );
+
+        var teamIndex = pick % teams.length;
+        $("#team").text( "" + teams[ teamIndex ] );
+        activeTeam = teamIndex;
+    }
+
+    function fillOptimalPlayer()
+    {
+        $("#player").val( $("#optimalPlayer").text().trim() );
+    }
+
+    function displayInfo()
+    {
+        $("#infoModal").toggle();
+    }
+
+    function updateInfo()
+    {
+        optimalInfo.optimalPlayer = getOptimalPlayer( players );
+        //todo
+    }
 	</script>
 	
 </body>

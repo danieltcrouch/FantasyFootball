@@ -24,7 +24,10 @@ $(document).ready(function () {
 
 /*** OTHER ***/
 
-//***
+function error()
+{
+	alert( "We have experienced an error. Contact us with your issue and a screenshot." );
+}
 
 /*** NAVIGATION ***/
 
@@ -51,6 +54,25 @@ function next()
 function back()
 {
 	window.history.back();
+}
+
+/*** DRAFTING ***/
+
+function getOptimalPlayer() //todo - all of this...
+{
+	var player = players[Math.floor(Math.random()*players.length)];;
+	$("#player").val( player );
+	$("#player").focus();
+}
+
+function getAvailablePlayers()
+{
+	return players;
+}
+
+function isValidPlayerPick()
+{
+	return true;
 }
 
 /***SETTINGS***/
@@ -90,8 +112,7 @@ function getSeason()
 
 function getPositions()
 {
-	return "1010";
-	//return $("#positions").val();
+	return "-"; //return $("#positions").val();
 }
 
 function getADP()
@@ -112,30 +133,23 @@ function getAAV()
 
 function getLeague()
 {
-   return {
-      starters: getStarters()
-   };
-}
-
-function getStarters()
-{
-   return {
-      qb: parseInt( $( "#qb" ).val().replace( /\D/g, '' ) ) || 0,
-      rb: parseInt( $( "#rb" ).val().replace( /\D/g, '' ) ) || 0,
-      wr: parseInt( $( "#wr" ).val().replace( /\D/g, '' ) ) || 0,
-      te: parseInt( $( "#te" ).val().replace( /\D/g, '' ) ) || 0,
-      k: parseInt( $( "#k" ).val().replace( /\D/g, '' ) ) || 0,
-      dst: parseInt( $( "#dst" ).val().replace( /\D/g, '' ) ) || 0,
-      dl: parseInt( $( "#dl" ).val().replace( /\D/g, '' ) ) || 0,
-      lb: parseInt( $( "#lb" ).val().replace( /\D/g, '' ) ) || 0,
-      db: parseInt( $( "#db" ).val().replace( /\D/g, '' ) ) || 0,
-      wrTe: parseInt( $( "#wrTe" ).val().replace( /\D/g, '' ) ) || 0,
-      wrRb: parseInt( $( "#wrRb" ).val().replace( /\D/g, '' ) ) || 0,
-      wrRbTe: parseInt( $( "#wrRbTe" ).val().replace( /\D/g, '' ) ) || 0,
-      qbWrRbTe: parseInt( $( "#qbWrRbTe" ).val().replace( /\D/g, '' ) ) || 0,
-      dlLbDb: parseInt( $( "#dlLbDb" ).val().replace( /\D/g, '' ) ) || 0,
-      bench: parseInt( $( "#bench" ).val().replace( /\D/g, '' ) ) || 0
-   };
+    return {
+       qb: parseInt( $( "#qb" ).val().replace( /\D/g, '' ) ) || 0,
+       rb: parseInt( $( "#rb" ).val().replace( /\D/g, '' ) ) || 0,
+       wr: parseInt( $( "#wr" ).val().replace( /\D/g, '' ) ) || 0,
+       te: parseInt( $( "#te" ).val().replace( /\D/g, '' ) ) || 0,
+       k: parseInt( $( "#k" ).val().replace( /\D/g, '' ) ) || 0,
+       dst: parseInt( $( "#dst" ).val().replace( /\D/g, '' ) ) || 0,
+       dl: parseInt( $( "#dl" ).val().replace( /\D/g, '' ) ) || 0,
+       lb: parseInt( $( "#lb" ).val().replace( /\D/g, '' ) ) || 0,
+       db: parseInt( $( "#db" ).val().replace( /\D/g, '' ) ) || 0,
+       wrTe: parseInt( $( "#wrTe" ).val().replace( /\D/g, '' ) ) || 0,
+       wrRb: parseInt( $( "#wrRb" ).val().replace( /\D/g, '' ) ) || 0,
+       wrRbTe: parseInt( $( "#wrRbTe" ).val().replace( /\D/g, '' ) ) || 0,
+       qbWrRbTe: parseInt( $( "#qbWrRbTe" ).val().replace( /\D/g, '' ) ) || 0,
+       dlLbDb: parseInt( $( "#dlLbDb" ).val().replace( /\D/g, '' ) ) || 0,
+       bench: parseInt( $( "#bench" ).val().replace( /\D/g, '' ) ) || 0
+    };
 }
 
 function getScoring()

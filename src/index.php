@@ -24,9 +24,7 @@
 		<button onclick="gotoSetUp()">Enter Site</button>
 	</div>
 
-	<div class="footerBanner">
-		<div class="footer">Fantasy Value Draft | <a href="/">About</a> | <a href="mailto:stephen.s.crouch@gmail.com">Contact</a></div>
-	</div>
+    <?php include("view/footer.html"); ?>
 
 	<script>
 	function gotoSetUp()

@@ -30,12 +30,9 @@
 	<?php include("setup/scoring.html"); ?>
 	<?php include("setup/teams.html"); ?>
 	</div>
-	
-	<?php include("modals/auction-modal.html"); ?>
 
-	<div class="footerBanner">
-		<div class="footer">Fantasy Value Draft | <a href="/">About</a> | <a href="mailto:stephen.s.crouch@gmail.com">Contact</a></div>
-	</div>
+    <?php include("view/footer.html"); ?>
+	<?php include("modals/auction-modal.html"); ?>
 	
 	<script>
 	$(document).ready(function () {
