@@ -23,13 +23,9 @@
     $_SESSION['memberId'] = $id;
 
 	$settings = json_encode( getDraftSettings( $id ) );
-	$teamCount = $settings['teams']['count'];
+    $players = json_encode( getPlayers() );
 	$teamNames = $settings['teams']['teamNames'];
-	$draftType = $settings['general']['draftType'];
-	$leagueCap = $settings['general']['leagueCap']; //todo - move this to JS
-	$leaguePositions = $settings['league']; //todo - move this to JS
-	
-	$players = json_encode( getPlayers() );
+
 	?>
 		
 	<div class="titleBanner">
@@ -44,8 +40,7 @@
 	<div class="content">
 		<br/>
 		<label>Draft Type: </label><span id="draftType">standard</span><br/>
-		<label>Round: </label><span id="round">1</span><br/>
-		<label>Pick: </label><span id="pick">1</span><br/>
+		<label>Round: </label><span id="round">1</span>, <label>Pick: </label><span id="pick">1</span><br/>
 
 		<div id="standardDisplay">
             <label>Active Team: </label><span id="team">You</span><br/>
@@ -66,7 +61,7 @@
             This draft type is still under construction.
         </div>
 
-		<?php generateTables( $teamCount, $leaguePositions, $teamNames ); ?>
+		<?php generateTables( $settings['teams']['count'], $settings['league'], $teamNames ); ?>
 	</div>
 
     <?php include("view/footer.html"); ?>
@@ -92,7 +87,8 @@
 	var activeTeam;
 
 	var FINAL_PICK;
-	
+	var MAX_PLAYERS;
+
 	$(document).ready(function () {
         $("#player").autocomplete( {source: players} );
        	$("#player").keyup(function(e){
@@ -106,9 +102,10 @@
        		}
        	});
 
-        FINAL_PICK = teams.length * <?php echo getPlayerCountFromPositions( $leaguePositions ); ?>;
-		
-		setDraftType( "<?php echo $draftType ?>" );
+        MAX_PLAYERS = <?php echo getPlayerCountFromPositions( $settings['league'] ); ?>;
+        FINAL_PICK = teams.length * MAX_PLAYERS;
+
+		setDraftType( "<?php echo $settings['general']['draftType'] ?>" );
 	});
 
     function setDraftType( type )
@@ -116,23 +113,23 @@
 		$("#draftType").text( "" + type );
 		if ( type == "auction" )
 		{
-			$("#moneyDisplay").show();
+			$("#auctionDisplay").show();
 			$("#standardDisplay").hide();
-            initiateAuction();
+            initializeAuction();
 		}
 		else
 		{
-			$("#moneyDisplay").hide();
+			$("#auctionDisplay").hide();
 			$("#standardDisplay").show();
-            initiateStandard();
+            initializeStandard();
 		}
 	}
 
 	//***AUCTION***//
 
-    function initiateAuction()
+    function initializeAuction()
     {
-        updateUserAssets( <?php echo $leagueCap; ?> );
+        updateUserAssets( <?php echo $settings['general']['leagueCap']; ?> );
         //todo - under construction
     }
 
@@ -158,7 +155,7 @@
 
     //***STANDARD***//
 
-    function initiateStandard()
+    function initializeStandard()
     {
         updatePickCount( 0 );
         getNextPick();

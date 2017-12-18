@@ -12,11 +12,14 @@ if ( isset( $_POST['action'] ) && function_exists( $_POST['action'] ) )
 	{
 		$settings = json_decode( $_POST['settings'] );
 		$result = call_user_func_array( $action, ["settings"=>$settings] );
-		//$_SESSION['memberId'] = $result['memberId'];
+		$_SESSION['memberId'] = $result['memberId'];
 	}
+
 	if ( isset( $_POST['memberId'] ) )
 	{
-
+		$memberId = json_decode( $_POST['memberId'] );
+		$result = call_user_func_array( $action, ["memberId"=>$memberId] );
+		$_SESSION['memberId'] = $result['memberId'];
 	}
 	
 	echo $result;
