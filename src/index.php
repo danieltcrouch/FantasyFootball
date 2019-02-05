@@ -1,37 +1,36 @@
+<?php include("$_SERVER[DOCUMENT_ROOT]/php/startup.php"); ?>
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Fantasy Value Draft</title>
-	<link rel="shortcut icon" type="image/png" href="resources/football.png"/>
-	<link rel="stylesheet" type="text/css" href="styles/stylesheet.css"/>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-	<script src="utility/utility.js"></script>
+    <?php includeHeadInfo(); ?>
 </head>
 
 <body>
 
-	<?php
-	session_start();
-	?>
+	<!--Header-->
+    <?php includeHeader(); ?>
+    <div class="col-10 header">
+        <div class="title center"><span class="clickable">
+            Fantasy Value Draft
+            <img style="width: .5em; padding-bottom: .25em" src="<?php getHelpImage() ?>" alt="help">
+        </span></div>
+        <div id="instructions" style="display: none">
+            Use this Fantasy Football Draft tool to determine the most efficient draft picks. Compare this tool to <a class="link" href="http://fantasyfootballanalytics.net/">FantasyFootballAnalytics</a>.
+        </div>
+    </div>
 
-	<div class="imageBanner" style="background-image: url(resources/football_banner.jpeg); height: 300px;"></div>
-	<div class="titleBanner">
-		<div class="subTitle">Welcome to</div>
-		<div class="title">Fantasy Value Draft</div>
-	</div>
-
-	<div class="content">
-		<button onclick="gotoSetUp()">Enter Site</button>
-	</div>
-
-    <?php include("view/footer.html"); ?>
-
-	<script>
-	function gotoSetUp()
-	{
-		window.location.href = "https://auctiondraftonline.000webhostapp.com/fantasy_football/setup.php";
-	}
-	</script>
+    <!--Main-->
+    <div class="col-10 main">
+        <div class="subtitle center">Set-up Draft Now!</div>
+        <button class="button" style="display: block; width: 10em; margin: 1em auto;" onclick="goToSetup()">Play!</button>
+    </div>
 
 </body>
+<script>
+    function goToSetup()
+    {
+        window.location = "https://football.religionandstory.com/setup.php";
+    }
+</script>
+<?php includeModals(); ?>
 </html>

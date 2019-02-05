@@ -1,80 +1,46 @@
+<?php include("$_SERVER[DOCUMENT_ROOT]/php/startup.php"); ?>
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Fantasy Value Draft</title>
-	<link rel="shortcut icon" type="image/png" href="resources/football.png"/>
-	<link rel="stylesheet" type="text/css" href="styles/stylesheet.css"/>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-	<script src="utility/utility.js"></script>
+    <?php
+    $pageTitle  = "Fantasy Draft Setup";
+    includeHeadInfo();
+    ?>
+    <script src="javascript/setup.js"></script>
 </head>
 
 <body>
 
-	<?php
-	session_start();
-	?>
-		
-	<div class="titleBanner">
-		<div class="title">Fantasy Value Draft</div>
-	</div>
-	<div class="navBar">
-		<span class="navTab">General</span>
-		<span class="navTab">League</span>
-		<span class="navTab">Scoring</span>
-		<span class="navTab">Teams</span>
-	</div>
-	
-	<div class="content">
-	<?php include("setup/general.html"); ?>
-	<?php include("setup/league.html"); ?>
-	<?php include("setup/scoring.html"); ?>
-	<?php include("setup/teams.html"); ?>
-	</div>
+	<!--Header-->
+    <?php includeHeader(); ?>
+    <div class="col-10 header">
+        <div class="title center"><span class="clickable">
+            Fantasy Draft Setup
+            <img style="width: .5em; padding-bottom: .25em" src="<?php getHelpImage() ?>" alt="help">
+        </span></div>
+        <div id="instructions" style="display: none">
+            More specific instructions coming...
+        </div>
+    </div>
 
-    <?php include("view/footer.html"); ?>
-	<?php include("modals/auction-modal.html"); ?>
-	
-	<script>
-	$(document).ready(function () {
-		$(".tab").hide();
-		$("#general").show();
-		
-		$("input[name='draftType']").change(function(){
-			toggleDraftType( this );
-		});
-		$("#auctionButton").click(function(){
-			$("#auctionModal").show();
-		});
-	});
-	
-	function toggleDraftType( radioButton )
-	{
-		if ( $(radioButton).val() == "auction" )
-		{
-            $("#auctionButton").show();
-			$("#auctionModal").show();
-		}
-		else
-        {
-            $("#auctionButton").hide();
-			$("#auctionModal").hide();
-		}
-	}
-	
-	function startDraft()
-	{
-		$.post(
-			"utility/controller.php",
-			{
-				action: 	"storeDraftSettings",
-				settings:	JSON.stringify( getSettings() )
-			},
-			function ( response ) {
-				window.location.href = "https://auctiondraftonline.000webhostapp.com/fantasy_football/draft.php?memberId=" + response;
-			}
-		);
-	}
-	</script>
-	
+    <!--Main-->
+    <div class="col-10 main">
+        <div class="col-8 navBar">
+            <div class="col-2 navButton center" onclick="">General</div>
+            <div class="col-2 navButton center" onclick="">League</div>
+            <div class="col-2 navButton center" onclick="">Scoring</div>
+            <div class="col-2 navButton center" onclick="">Teams</div>
+        </div>
+
+        <?php include("html/setup/general.html"); ?>
+       	<?php include("html/setup/league.html"); ?>
+       	<?php include("html/setup/scoring.html"); ?>
+       	<?php include("html/setup/teams.html"); ?>
+    </div>
+
 </body>
+<script>
+    //
+</script>
+<?php includeModals(); ?>
 </html>

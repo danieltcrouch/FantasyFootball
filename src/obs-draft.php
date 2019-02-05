@@ -2,10 +2,10 @@
 <html>
 <head>
 	<title>Fantasy Value Draft</title>
-	<link rel="shortcut icon" type="image/png" href="resources/football.png"/>
+	<link rel="shortcut icon" type="image/png" href="images/football.png"/>
 	<link rel="stylesheet" type="text/css" href="styles/stylesheet.css"/>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-	<script src="utility/utility.js"></script>
+	<script src="javascript/setup.js"></script>
 	
 	<!-- AutoComplete -->
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -16,8 +16,8 @@
 
 	<?php
 	session_start();
-	include_once( "utility/utility.php" );
-	include_once( "utility/database.php" );
+	include_once("php/utility.php");
+	include_once("php/database.php");
 
 	$id = ( isset($_GET['memberId']) ? $_GET['memberId'] : $_SESSION['memberId'] );
     $_SESSION['memberId'] = $id;
@@ -65,7 +65,7 @@
 	</div>
 
     <?php include("view/footer.html"); ?>
-    <?php include("modals/info-modal.html"); ?>
+    <?php include("html/info-modal.html"); ?>
 
 	<script>
 	/*

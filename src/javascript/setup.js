@@ -1,82 +1,3 @@
-/*** SET_UP ***/
-$(document).ready(function () {
-	$(".navTab").click(function(){
-		showTab( this.innerText );
-	});
-	$(window).scroll(function(){ 
-		if ( $(window).scrollTop() > 57 )
-		{
-			$(".navBar").addClass("navBarFixed");
-		}
-		if ( $(window).scrollTop() < 58 )
-		{
-			$(".navBar").removeClass("navBarFixed");
-		}
-	});
-	$("#close, .modal").click(function(event) {
-		if( event.target.className == "modal" ||
-			event.target.id == "close" )
-		{
-			$(".modal").hide();
-		}
-	});
-});
-
-/*** OTHER ***/
-
-function error()
-{
-	alert( "We have experienced an error. Contact us with your issue and a screenshot." );
-}
-
-/*** NAVIGATION ***/
-
-function showTab( tabName )
-{
-    $(".tab").hide();
-    document.getElementById(tabName).style.display = "block";
-}
-
-function next()
-{
-	var tabs = document.getElementsByClassName("tab");
-    for (var i = 0; i < tabs.length; i++)
-	{
-		if ( tabs[i].style.display !== "none" )
-		{
-			tabs[i].style.display = "none";
-			tabs[i+1].style.display = "block";
-			break;
-		}
-    }
-}
-
-function back()
-{
-	window.history.back();
-}
-
-/*** DRAFTING ***/
-
-function getOptimalPlayer() //todo - all of this...
-{
-	var player = players[Math.floor(Math.random()*players.length)];;
-	$("#player").val( player );
-	$("#player").focus();
-}
-
-function getAvailablePlayers()
-{
-	return players;
-}
-
-function isValidPlayerPick()
-{
-	return true;
-}
-
-/***SETTINGS***/
-	
 function getSettings()
 {
    return {
@@ -166,7 +87,7 @@ function getScoring()
       vor: getVOR()
    };
 }
-	
+
 function getPassing()
 {
    return {
@@ -198,7 +119,7 @@ function getRushing()
       rushBonus400: parseInt( $( "#rushBonus400" ).val().replace( /\D/g, '' ) ) || 0
    };
 }
-	
+
 function getReceiving()
 {
    return {
@@ -212,7 +133,7 @@ function getReceiving()
       receiveBonus400: parseInt( $( "#receiveBonus400" ).val().replace( /\D/g, '' ) ) || 0
    };
 }
-	
+
 function getFumbles()
 {
    return {
@@ -220,7 +141,7 @@ function getFumbles()
       fumbles: parseInt( $( "#fumbles" ).val().replace( /\D/g, '' ) ) || 0
    };
 }
-	
+
 function getKicking()
 {
    return {
@@ -258,7 +179,7 @@ function getIDP()
       idpSafety: parseInt( $( "#idpSafety" ).val().replace( /\D/g, '' ) ) || 0
    };
 }
-	
+
 function getDefense()
 {
    return {
@@ -285,12 +206,12 @@ function getTeams()
       userIndex: getUserIndex()
    };
 }
-	
+
 function getTeamCount()
 {
 	return parseInt( $("#teamCount option:selected").val() );
 }
-	
+
 function getTeamNames()
 {
 	var teamNames = [];
@@ -299,7 +220,7 @@ function getTeamNames()
 	});
 	return teamNames;
 }
-	
+
 function getUserIndex()
 {
 	return parseInt( $("#userIndex option:selected").val() );
