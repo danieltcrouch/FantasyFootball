@@ -1,0 +1,18 @@
+qb|QB|number
+rb|RB|number
+wr|WR|number
+te|TE|number
+k |K |number
+HR
+dst|DST|number
+dl |DL |number
+lb |LB |number
+db |DB |number
+HR
+wrTe    |WR/TE      |number
+wrRb    |WR/RB      |number
+wrRbTe  |WR/RB/TE   |number
+qbWrRbTe|QB/WR/RB/TE|number
+dlLbDb  |DL/LB/DB   |number
+HR
+bench|Bench|number

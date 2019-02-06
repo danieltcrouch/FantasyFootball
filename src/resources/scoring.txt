@@ -1,0 +1,34 @@
+	<fieldset style="text-align: left">
+		<legend>Passing</legend>
+		<label for="passAttempts">Pass Attempts: </label>		<input type="number" id="passAttempts" />
+		<label for="passComp">Pass Completions: </label>		<input type="number" id="passComp" />
+		<label for="passIncomp">Pass Incompletions: </label>	<input type="number" id="passIncomp" />
+		<hr/>
+		<label for="passYds">Passing Yds (Pts/Yds): </label>	<input type="text" id="passYds" placeholder="1/25"/>
+		<label for="passTds">Pass TDs: </label>					<input type="number" id="passTds" />
+		<label for="passTd40">40 Yd Pass Td: </label>			<input type="number" id="passTd40" />
+		<hr/>
+		<label for="passIntercept">Interceptions: </label>		<input type="number" id="passIntercept" />
+		<hr/>
+		<label for="passBonus300">300 Yd Pass Bonus: </label>	<input type="number" id="passBonus300" />
+		<label for="passBonus350">350 Yd Pass Bonus: </label>	<input type="number" id="passBonus350" />
+		<label for="passBonus400">400 Yd Pass Bonus: </label>	<input type="number" id="passBonus400" />
+	</fieldset>
+	<br />
+	<fieldset style="text-align: left">
+		<legend>Rushing</legend>
+		<input type="checkbox" id="rushDsp" /><label for="rushDsp"> Different Scoring by Position</label>
+		<hr/>
+		<label for="rushYds">Rushing Yds (Pts/Yds): </label>	<input type="text" id="rushYds" placeholder="1/10"/>
+		<label for="rushAttempts">Rushing Attempts: </label>	<input type="number" id="rushAttempts" /><br/>
+		<label for="rushTds">Rushing TDs: </label>				<input type="number" id="rushTds" />
+		<label for="rushTd40">40 Yd Rush TD: </label>			<input type="number" id="rushTd40" />
+		<hr/>
+		<label for="rushConv">2Pt Conversions: </label>			<input type="number" id="rushConv" />
+		<hr/>
+		<label for="rushSacks">Sacks: </label>					<input type="number" id="rushSacks" />
+		<hr/>
+		<label for="rushBonus300">300 Yd Pass Bonus: </label>	<input type="number" id="rushBonus300" />
+		<label for="rushBonus350">350 Yd Pass Bonus: </label>	<input type="number" id="rushBonus350" />
+		<label for="rushBonus400">400 Yd Pass Bonus: </label>	<input type="number" id="rushBonus400" />
+	</fieldset>

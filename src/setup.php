@@ -32,10 +32,15 @@
             <button id="teams"   name="setup" class="col-2h navButton inverseTab center">Teams</button>
         </div>
 
-        <?php include("html/setup/general.html"); ?>
-       	<?php include("html/setup/league.html"); ?>
-       	<?php include("html/setup/scoring.html"); ?>
-       	<?php include("html/setup/teams.html"); ?>
+        <?php include("html/setup/general.php"); ?>
+       	<?php include("html/setup/league.php"); ?>
+       	<?php include("html/setup/scoring.php"); ?>
+       	<?php include("html/setup/teams.php"); ?>
+
+        <div class="col-10 center">
+            <button id="next" class="button" style="width: 6em" onclick="displayNextTab( 'setup' )">Next</button>
+            <button id="next" class="button" style="width: 6em; display: none" onclick="finishSetup()">Finish</button>
+        </div>
     </div>
 
 </body>

@@ -1,5 +1,7 @@
-<div id="scoring" class="tab setupTab">
-	<fieldset class="inputSection" style="text-align: left;">
+<div id="scoring" class="col-10 tab setupTab center">
+	<div class="center" style="font-size: 1.5em">Scoring</div>
+
+	<fieldset style="text-align: left">
 		<legend>Passing</legend>
 		<label for="passAttempts">Pass Attempts: </label>		<input type="number" id="passAttempts" />
 		<label for="passComp">Pass Completions: </label>		<input type="number" id="passComp" />
@@ -15,7 +17,8 @@
 		<label for="passBonus350">350 Yd Pass Bonus: </label>	<input type="number" id="passBonus350" />
 		<label for="passBonus400">400 Yd Pass Bonus: </label>	<input type="number" id="passBonus400" />
 	</fieldset>
-	<fieldset class="inputSection" style="text-align: left;">
+	<br />
+	<fieldset style="text-align: left">
 		<legend>Rushing</legend>
 		<input type="checkbox" id="rushDsp" /><label for="rushDsp"> Different Scoring by Position</label>
 		<hr/>
@@ -32,7 +35,8 @@
 		<label for="rushBonus350">350 Yd Pass Bonus: </label>	<input type="number" id="rushBonus350" />
 		<label for="rushBonus400">400 Yd Pass Bonus: </label>	<input type="number" id="rushBonus400" />
 	</fieldset>
-	<fieldset class="inputSection" style="text-align: left;">
+	<br />
+	<fieldset style="text-align: left">
 		<legend>Receiving</legend>
 		<input type="checkbox" id="receiveDsp" /><label for="receiveDsp"> Different Scoring by Position</label>
 		<hr/>
@@ -42,16 +46,18 @@
 		<label for="receiveTd40">40 Yd Receiving TD: </label>		<input type="number" id="receiveTd40" />
 		<hr/>
 		<label for="receiveBonus300">300 Yd Receiving Bonus: </label>	<input type="number" id="receiveBonus300" />
-		<label for="receiveBonus350v">350 Yd Receiving Bonus: </label>	<input type="number" id="receiveBonus350" />
-		<label for="receiveBonus400v">400 Yd Receiving Bonus: </label>	<input type="number" id="receiveBonus400" />
+		<label for="receiveBonus350">350 Yd Receiving Bonus: </label>	<input type="number" id="receiveBonus350" />
+		<label for="receiveBonus400">400 Yd Receiving Bonus: </label>	<input type="number" id="receiveBonus400" />
 	</fieldset>
-	<fieldset class="inputSection" style="text-align: left;">
+	<br />
+	<fieldset style="text-align: left">
 		<legend>Fumbles</legend>
 		<input type="checkbox" id="fumbleDsp" /><label for="fumbleDsp"> Different Scoring by Position</label>
 		<hr/>
 		<label for="fumbles">Fumbles Lost: </label><input type="number" id="fumbles" />
 	</fieldset>
-	<fieldset class="inputSection" style="text-align: left;">
+	<br />
+	<fieldset style="text-align: left">
 		<legend>Kicking</legend>
 		<label for="kickEx">Extra Pts: </label>	<input type="number" id="kickEx" />
 		<hr/>
@@ -63,14 +69,16 @@
 		<hr/>
 		<label for="kickFgMiss">Missed Field Goals: </label>	<input type="number" id="kickFgMiss" />
 	</fieldset>
-	<fieldset class="inputSection" style="text-align: left;">
+	<br />
+	<fieldset style="text-align: left">
 		<legend>Returns</legend>
 		<input type="checkbox" id="returnDsp" /><label for="returnDsp"> Different Scoring by Position</label>
 		<hr/>
 		<label for="returnYds">Return Yds (Pts/Yds): </label>	<input type="text" id="returnYds" placeholder="1/10"/>
 		<label for="returnTds">Return TDs: </label>				<input type="number" id="returnTds" />
 	</fieldset>
-	<fieldset class="inputSection" style="text-align: left;">
+	<br />
+	<fieldset style="text-align: left">
 		<legend>IDP Scoring</legend>
 		<input type="checkbox" id="idpDsp" /><label for="idpDsp"> Different Scoring by Position</label>
 		<hr/>
@@ -87,7 +95,8 @@
 		<label for="idpTds">TDs: </label>						<input type="number" id="idpTds" />
 		<label for="idpSafety">Safety: </label>					<input type="number" id="idpSafety" />
 	</fieldset>
-	<fieldset class="inputSection" style="text-align: left;">
+	<br />
+	<fieldset style="text-align: left">
 		<legend>Team Defense</legend>
 		<label for="defSack">Sacks: </label>					<input type="number" id="defSack" />
 		<label for="defRecovered">Recovered Fumble: </label>	<input type="number" id="defRecovered" />
@@ -100,8 +109,8 @@
 		<hr/>
 		<label for="defYds">Return Yds (Pts/Yds): </label>		<input type="text" id="defYds" placeholder="1/10"/>
 	</fieldset>
+	<br />
 	<div class="inputSection">
 		<label for="vor">VOR Baseline: </label><span id="vor">Determined by scoring input</span>
 	</div>
-	<button onclick="next()">Next</button>
 </div>

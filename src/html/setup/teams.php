@@ -1,5 +1,6 @@
-<div id="teams" class="tab setupTab">
-	<div class="inputSection">
+<div id="teams" class="col-10 tab setupTab center">
+	<div class="center" style="font-size: 1.5em">Teams</div>
+	<div>
 		<label for="teamCount">Number of Teams: </label>
 		<select onchange="updateTeamNames()" id="teamCount">
 			<option value="2">2 (for Testing)</option>
@@ -8,14 +9,14 @@
 			<option value="12">12</option>
 		</select>
 	</div>
-	<div class="inputSection">
+	<div>
 		<label for="userIndex">Your Order in the Draft: </label>
 		<select id="userIndex">
 			<option value="1">1</option>
 			<option value="2">2</option>
 		</select>
 	</div>
-	<fieldset class="inputSection" id="teamNames">
+	<fieldset id="teamNames">
 		<legend>Team Names</legend>
 	</fieldset>
 	<button onclick="startDraft()">Start Draft!</button>
