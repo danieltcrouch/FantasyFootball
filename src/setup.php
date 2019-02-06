@@ -25,11 +25,11 @@
 
     <!--Main-->
     <div class="col-10 main">
-        <div class="col-8 navBar">
-            <div class="col-2 navButton center" onclick="">General</div>
-            <div class="col-2 navButton center" onclick="">League</div>
-            <div class="col-2 navButton center" onclick="">Scoring</div>
-            <div class="col-2 navButton center" onclick="">Teams</div>
+        <div class="col-10 navBar" style="padding: 0 10%; margin-bottom: 2em">
+            <button id="general" name="setup" class="col-2h navButton inverseTab center">General</button>
+            <button id="league"  name="setup" class="col-2h navButton inverseTab center">League</button>
+            <button id="scoring" name="setup" class="col-2h navButton inverseTab center">Scoring</button>
+            <button id="teams"   name="setup" class="col-2h navButton inverseTab center">Teams</button>
         </div>
 
         <?php include("html/setup/general.html"); ?>
@@ -40,7 +40,8 @@
 
 </body>
 <script>
-    //
+    $(document).ready( function(){ hideAllTabs(); } );
+    setTabCallbackToDisplay( "setup" );
 </script>
 <?php includeModals(); ?>
 </html>
