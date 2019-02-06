@@ -1,5 +1,7 @@
 <div id="general" class="col-10 tab setupTab center">
 	<div class="center" style="font-size: 1.5em">Draft Type</div>
+    <br/>
+
 	<div class="center" style="margin-bottom: 1em">
 		<button id="standard"  name="draftType" class="button inverseButton" style="width: 6em; margin: .25em;">Standard</button>
 		<button id="auction"   name="draftType" class="button inverseButton" style="width: 6em; margin: .25em;">Auction</button>

@@ -1,67 +1,76 @@
 <div id="teams" class="col-10 tab setupTab center">
 	<div class="center" style="font-size: 1.5em">Teams</div>
+    <br/>
+
 	<div>
-		<label for="teamCount">Number of Teams: </label>
-		<select onchange="updateTeamNames()" id="teamCount">
+		<label for="teamCount" class="label">Number of Teams: </label>
+		<select id="teamCount" class="select" onchange="updateTeams()">
 			<option value="2">2 (for Testing)</option>
 			<option value="8">8</option>
 			<option value="10">10</option>
 			<option value="12">12</option>
 		</select>
 	</div>
+
 	<div>
-		<label for="userIndex">Your Order in the Draft: </label>
-		<select id="userIndex">
+		<label for="userIndex" class="label">Your Order in the Draft: </label>
+		<select id="userIndex" class="select">
 			<option value="1">1</option>
 			<option value="2">2</option>
 		</select>
 	</div>
-	<fieldset id="teamNames">
-		<legend>Team Names</legend>
-	</fieldset>
-	<button onclick="startDraft()">Start Draft!</button>
+
+	<div id="teamNames">
+		<span class="label">Team Names</span>
+	</div>
 </div>
 
 <script>
 $(document).ready(function () {
-	updateTeamNames();
+	updateTeams();
 });
 
-function updateTeamNames()
+function updateTeams()
 {
-	var container = document.getElementById("teamNames");
-	while (container.hasChildNodes())
+	var indexSelect = document.getElementById("userIndex");
+    indexSelect.options.length = 0;
+    for ( i = 0; i < getTeamCount(); i++ )
+    {
+        var option = document.createElement("option");
+        option.text = i + 1 + "";
+        indexSelect.add( option );
+    }
+
+	var nameContainer = document.getElementById("teamNames");
+	while (nameContainer.hasChildNodes())
 	{
-		container.removeChild( container.lastChild );
+        nameContainer.removeChild( nameContainer.lastChild );
 	}
 	
-	addLegend( container );
+    addTitle( nameContainer );
 	for (var i = 1; i <= getTeamCount(); i++)
 	{
-		addTeam( container, i );
+		addTeam( nameContainer, i );
 	}
 }
 
-function addLegend( container )
+function addTitle( container )
 {
-	var legend = document.createElement("legend");
-	legend.innerText = "Team Names";
-	container.appendChild(legend);
+	var span = document.createElement("span");
+    span.innerText = "Team Names";
+    span.classList.add( "label" );
+	container.appendChild(span);
 }
 
 function addTeam( container, index )
 {
-	var div = document.createElement("div");
-	div.class = "inputSection";
-	
 	var input = document.createElement("input");
 	input.type = "text";
 	input.id = "t" + index;
 	input.name = "teamNames";
-	input.style = "width: 200px;";
 	input.pattern = "[a-zA-Z0-9!@#$%^*_|]{6,25}";
-	input.placeholder = "Team " + index;
-	div.appendChild(input);
-	container.appendChild(div);
+    input.placeholder = "Team " + index;
+    input.classList.add( "input" );
+    container.appendChild(input);
 }
 </script>

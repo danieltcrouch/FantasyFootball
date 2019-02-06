@@ -1,34 +1,85 @@
-	<fieldset style="text-align: left">
-		<legend>Passing</legend>
-		<label for="passAttempts">Pass Attempts: </label>		<input type="number" id="passAttempts" />
-		<label for="passComp">Pass Completions: </label>		<input type="number" id="passComp" />
-		<label for="passIncomp">Pass Incompletions: </label>	<input type="number" id="passIncomp" />
-		<hr/>
-		<label for="passYds">Passing Yds (Pts/Yds): </label>	<input type="text" id="passYds" placeholder="1/25"/>
-		<label for="passTds">Pass TDs: </label>					<input type="number" id="passTds" />
-		<label for="passTd40">40 Yd Pass Td: </label>			<input type="number" id="passTd40" />
-		<hr/>
-		<label for="passIntercept">Interceptions: </label>		<input type="number" id="passIntercept" />
-		<hr/>
-		<label for="passBonus300">300 Yd Pass Bonus: </label>	<input type="number" id="passBonus300" />
-		<label for="passBonus350">350 Yd Pass Bonus: </label>	<input type="number" id="passBonus350" />
-		<label for="passBonus400">400 Yd Pass Bonus: </label>	<input type="number" id="passBonus400" />
-	</fieldset>
-	<br />
-	<fieldset style="text-align: left">
-		<legend>Rushing</legend>
-		<input type="checkbox" id="rushDsp" /><label for="rushDsp"> Different Scoring by Position</label>
-		<hr/>
-		<label for="rushYds">Rushing Yds (Pts/Yds): </label>	<input type="text" id="rushYds" placeholder="1/10"/>
-		<label for="rushAttempts">Rushing Attempts: </label>	<input type="number" id="rushAttempts" /><br/>
-		<label for="rushTds">Rushing TDs: </label>				<input type="number" id="rushTds" />
-		<label for="rushTd40">40 Yd Rush TD: </label>			<input type="number" id="rushTd40" />
-		<hr/>
-		<label for="rushConv">2Pt Conversions: </label>			<input type="number" id="rushConv" />
-		<hr/>
-		<label for="rushSacks">Sacks: </label>					<input type="number" id="rushSacks" />
-		<hr/>
-		<label for="rushBonus300">300 Yd Pass Bonus: </label>	<input type="number" id="rushBonus300" />
-		<label for="rushBonus350">350 Yd Pass Bonus: </label>	<input type="number" id="rushBonus350" />
-		<label for="rushBonus400">400 Yd Pass Bonus: </label>	<input type="number" id="rushBonus400" />
-	</fieldset>
+Passing
+passAttempts|Pass Attempts|number
+passComp|Pass Completions|number
+passIncomp|Pass Incompletions|number
+HR
+passYds|Passing Yds (Pts/Yds)|text|1/25
+passTds|Pass TDs|number
+passTd40|40 Yd Pass Td|number
+HR
+passIntercept|Interceptions|number
+HR
+passBonus300|300 Yd Pass Bonus|number
+passBonus350|350 Yd Pass Bonus|number
+passBonus400|400 Yd Pass Bonus|number
+Rushing
+rushDsp|Different Scoring by Position|checkbox
+HR
+rushYds|Rushing Yds (Pts/Yds)|text|1/10
+rushAttempts|Rushing Attempts|number
+rushTds|Rushing TDs|number
+rushTd40|40 Yd Rush TD|number
+HR
+rushConv|2Pt Conversions|number
+HR
+rushSacks|Sacks|number
+HR
+rushBonus300|300 Yd Pass Bonus|number
+rushBonus350|350 Yd Pass Bonus|number
+rushBonus400|400 Yd Pass Bonus|number
+Receiving
+receiveDsp|Different Scoring by Position|checkbox
+HR
+receiveYds|Receiving Yds (Pts/Yds)|text|1/10
+receiveComp|Receptions|number
+receiveTds|Receiving TDs|number
+receiveTd40|40 Yd Receiving TD|number
+HR
+receiveBonus300|300 Yd Receiving Bonus|number
+receiveBonus350|350 Yd Receiving Bonus|number
+receiveBonus400|400 Yd Receiving Bonus|number
+Fumbles
+fumbleDsp|Different Scoring by Position|checkbox
+HR
+fumbles|Fumbles Lost|number
+Kicking
+kickEx|Extra Pts|number
+HR
+kickFg19|Field Goals 0-19 Yds|number
+kickFg29|Field Goals 20-29 Yds|number
+kickFg39|Field Goals 30-39 Yds|number
+kickFg49|Field Goals 40-49 Yds|number
+kickFg50|Field Goals 50+ Yds|number
+HR
+kickFgMiss|Missed Field Goals|number
+Returns
+returnDsp|Different Scoring by Position|checkbox
+HR
+returnYds|Return Yds (Pts/Yds)|text
+returnTds|Return TDs|number
+IDP Scoring
+idpDsp|Different Scoring by Position|checkbox
+HR
+idpTackleSolo|Solo Tackle|number
+idpTackleAssist|Assisted Tackle|number
+idpSack|Sacks|number
+HR
+idpForced|Forced Fumble|number
+idpRecovered|Recovered Fumble|number
+HR
+idpIntercept|Interceptions|number
+idpDeflect|Pass Deflection|number
+HR
+idpTds|TDs|number
+idpSafety|Safety|number
+Team Defense
+defSack|Sacks|number
+defRecovered|Recovered Fumble|number
+defIntercept|Interceptions|number
+HR
+defTds|TDs|number
+defSafety|Safety|number
+HR
+defBlock|Blocked Kicks|number
+HR
+defYds|Return Yds (Pts/Yds)|text|1/10
