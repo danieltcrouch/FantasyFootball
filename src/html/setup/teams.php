@@ -1,4 +1,4 @@
-<div id="teams" class="col-10 tab setupTab center">
+<div id="teams" class="col-10 tab setupTab center" style="display: none">
 	<div class="center" style="font-size: 1.5em">Teams</div>
     <br/>
 
@@ -47,19 +47,15 @@ function updateTeams()
         nameContainer.removeChild( nameContainer.lastChild );
 	}
 	
-    addTitle( nameContainer );
+    var span = document.createElement("span");
+    span.innerText = "Team Names";
+    span.classList.add( "label" );
+    nameContainer.appendChild(span);
+
 	for (var i = 1; i <= getTeamCount(); i++)
 	{
 		addTeam( nameContainer, i );
 	}
-}
-
-function addTitle( container )
-{
-	var span = document.createElement("span");
-    span.innerText = "Team Names";
-    span.classList.add( "label" );
-	container.appendChild(span);
 }
 
 function addTeam( container, index )

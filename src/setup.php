@@ -46,7 +46,22 @@
 </body>
 <script>
     $(document).ready( function(){ hideAllTabs(); } );
+
     setTabCallbackToDisplay( "setup" );
+
+    function finishSetup()
+    {
+        $.post(
+            "utility/controller.php",
+            {
+                action: 	"storeDraftSettings",
+                settings:	JSON.stringify( getSettings() )
+            },
+            function ( response ) {
+                window.location.href = "https://football.religionandstory.com/draft.php?memberId=" + response;
+            }
+        );
+    }
 </script>
 <?php includeModals(); ?>
 </html>

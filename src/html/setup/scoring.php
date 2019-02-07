@@ -1,4 +1,4 @@
-<div id="scoring" class="col-10 tab setupTab center">
+<div id="scoring" class="col-10 tab setupTab center" style="display: none">
 	<div class="center" style="font-size: 1.5em">Scoring</div>
     <br/>
 

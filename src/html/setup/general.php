@@ -1,4 +1,4 @@
-<div id="general" class="col-10 tab setupTab center">
+<div id="general" class="col-10 tab setupTab center" style="display: none">
 	<div class="center" style="font-size: 1.5em">Draft Type</div>
     <br/>
 
@@ -18,3 +18,25 @@
 		<label for="adp" class="label">ADP Source: </label><span id="adp">Auto-calculated</span>
 	</div>
 </div>
+
+<script>
+    setRadioCallback( "draftType", function ( draftType )
+    {
+        if ( draftType === "auction" )
+        {
+            $("#auctionSettings").show();
+            $("#auctionModal").show();
+        }
+        else
+        {
+            $("#auctionSettings").hide();
+            $("#auctionModal").hide();
+        }
+    } );
+
+    $("#auctionSettings").click( function(){
+        $("#auctionModal").show();
+    } );
+</script>
+
+<?php include("html/auction-modal.html"); ?>
