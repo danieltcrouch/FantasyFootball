@@ -14,7 +14,7 @@ if ( isset( $_POST['action'] ) && function_exists( $_POST['action'] ) )
 	}
 	elseif ( isset( $_POST['memberId'] ) )
 	{
-		$result = json_decode( $_POST['memberId'] );
+		$result = $action( $_POST['memberId'] );
 	}
 	
 	echo json_encode( $result );

@@ -1,3 +1,25 @@
+function finishSetup()
+{
+    if ( isValid() )
+    {
+        $.post(
+            "php/controller.php",
+            {
+                action: 	"storeDraftSettings",
+                settings:	JSON.stringify( getSettings() )
+            },
+            function ( response ) {
+                window.location.href = "https://football.religionandstory.com/draft.php?memberId=" + response;
+            }
+        );
+    }
+}
+
+function isValid()
+{
+    return true;
+}
+
 function getSettings()
 {
     return {

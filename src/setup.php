@@ -61,24 +61,6 @@
             $('#finish').hide();
         }
     } );
-
-    function finishSetup()
-    {
-        var isValid = true;
-        if ( isValid )
-        {
-            $.post(
-                "utility/controller.php",
-                {
-                    action: 	"storeDraftSettings",
-                    settings:	JSON.stringify( getSettings() )
-                },
-                function ( response ) {
-                    window.location.href = "https://football.religionandstory.com/draft.php?memberId=" + response;
-                }
-            );
-        }
-    }
 </script>
 <?php include("html/auction-modal.html"); ?>
 <?php includeModals(); ?>
