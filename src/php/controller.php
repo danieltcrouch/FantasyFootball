@@ -2,26 +2,21 @@
 session_start();
 include_once( "database.php" );
 
-//AJAX Endpoint
 if ( isset( $_POST['action'] ) && function_exists( $_POST['action'] ) )
 {
-	$result = null;
-	$action = $_POST['action'];
-	
+    $action = $_POST['action'];
+    $result = null;
+
 	if ( isset( $_POST['settings'] )  )
 	{
 		$settings = json_decode( $_POST['settings'] );
-		$result = call_user_func_array( $action, ["settings"=>$settings] );
-		$_SESSION['memberId'] = $result['memberId'];
+		$result = $action( $settings );
 	}
-
-	if ( isset( $_POST['memberId'] ) )
+	elseif ( isset( $_POST['memberId'] ) )
 	{
-		$memberId = json_decode( $_POST['memberId'] );
-		$result = call_user_func_array( $action, ["memberId"=>$memberId] );
-		$_SESSION['memberId'] = $result['memberId'];
+		$result = json_decode( $_POST['memberId'] );
 	}
 	
-	echo $result;
+	echo json_encode( $result );
 }
 ?>

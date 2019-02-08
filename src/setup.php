@@ -39,7 +39,7 @@
 
         <div class="col-10 center">
             <button id="next" class="button" style="width: 6em" onclick="displayNextTab( 'setup' )">Next</button>
-            <button id="next" class="button" style="width: 6em; display: none" onclick="finishSetup()">Finish</button>
+            <button id="finish" class="button" style="width: 6em; display: none" onclick="finishSetup()">Finish</button>
         </div>
     </div>
 
@@ -49,19 +49,37 @@
 
     setTabCallbackToDisplay( "setup" );
 
+    $('.inverseTab').click( function() {
+        if ( this.id === "teams" )
+        {
+            $('#next').hide();
+            $('#finish').show();
+        }
+        else
+        {
+            $('#next').show();
+            $('#finish').hide();
+        }
+    } );
+
     function finishSetup()
     {
-        $.post(
-            "utility/controller.php",
-            {
-                action: 	"storeDraftSettings",
-                settings:	JSON.stringify( getSettings() )
-            },
-            function ( response ) {
-                window.location.href = "https://football.religionandstory.com/draft.php?memberId=" + response;
-            }
-        );
+        var isValid = true;
+        if ( isValid )
+        {
+            $.post(
+                "utility/controller.php",
+                {
+                    action: 	"storeDraftSettings",
+                    settings:	JSON.stringify( getSettings() )
+                },
+                function ( response ) {
+                    window.location.href = "https://football.religionandstory.com/draft.php?memberId=" + response;
+                }
+            );
+        }
     }
 </script>
+<?php include("html/auction-modal.html"); ?>
 <?php includeModals(); ?>
 </html>

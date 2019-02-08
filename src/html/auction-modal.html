@@ -8,9 +8,9 @@
                 <span id="close" class="close">&times;</span>
             </div>
             <div id="modalBody" class="modal-body center">
-                <div>
+                <div style="margin-bottom: 1em">
                     <label for="leagueCap" class="label">League Cap: </label>
-                    <input  id="leagueCap" type="number"/>
+                    <input  id="leagueCap" type="number" class="input"/>
                 </div>
                 <div>
                     <label for="aav" class="label">AAV: </label>
@@ -21,9 +21,8 @@
                     </select>
                 </div>
             </div>
-            <div id="modalSubmit" class="modal-submit center" style="display: none">
-                <!-- todo -->
-                <button id="submitButton" class="button" style="width: 5em" onclick="submitAuctionSettings()">OK</button>
+            <div id="modalSubmit" class="modal-submit center">
+                <button id="submitButton" class="button" style="width: 5em">Done</button>
             </div>
         </div>
     </div>
@@ -31,8 +30,11 @@
 </div>
 
 <script>
-    function submitAuctionSettings()
+    function openAuctionModal()
     {
-        $( "#auctionModal" ).hide();
+        var modal = $('#auctionModal');
+        modal.show();
+        setCloseHandlers( modal );
+        blurBackground();
     }
 </script>

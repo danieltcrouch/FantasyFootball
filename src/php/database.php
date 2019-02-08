@@ -36,7 +36,8 @@ function storeDraftSettings( $settings )
 	$insertDefense	= "INSERT INTO scoringDefense	(s_id, scd_defSack, scd_defRecovered, scd_defIntercept, scd_defTds, scd_defSafety, scd_defBlock, scd_defYds)
 											 VALUES ('" . $settingsId . "', " . $settings->scoring->defense->defSack . ", " . $settings->scoring->defense->defRecovered . ", " . $settings->scoring->defense->defIntercept . ", " . $settings->scoring->defense->defTds . ", " . $settings->scoring->defense->defSafety . ", " . $settings->scoring->defense->defBlock . ", '" . $settings->scoring->defense->defYds . "')";
 	
-	$insertTeamNames= "INSERT INTO teamNames (s_id, tn_teamIndex, tn_teamName) VALUES ";
+	$insertTeamNames= "INSERT INTO teamNames        (s_id, tn_teamIndex, tn_teamName)
+                                             VALUES ";
 	for ( $i = 0; $i < $settings->teams->count; $i++ )
     {
         if ($i != 0)
@@ -44,16 +45,18 @@ function storeDraftSettings( $settings )
             $insertTeamNames .= ", ";
         }
         $insertTeamNames .= "('" . $settingsId . "', " . $i . ", '" . $settings->teams->teamNames[$i] . "')";
+        //todo - change this to implode logic and make inline like the others
     }
-	
-	$query = $insertMember . "; " . $insertSGeneral . "; " . $insertSLeague . "; " . $insertSScoring . "; " . $insertSTeams . "; " .
+
+    //semi-colon on all but last query
+    $query = $insertMember . "; " . $insertSGeneral . "; " . $insertSLeague . "; " . $insertSScoring . "; " . $insertSTeams . "; " .
 			 $insertPassing . "; " . $insertRushing . "; " . $insertReceiving . "; " . $insertFumbles . "; " . $insertKicking . "; " . $insertReturns . "; " . $insertIdp . "; " . $insertDefense . "; " .
 			 $insertTeamNames;
-    //semi-colon on all but last query
-	
+
 	$mysqli->multi_query($query);
 	$mysqli->close();
 
+    $_SESSION['memberId'] = $memberId;
 	return $memberId;
 }
 
@@ -164,11 +167,14 @@ function getDraftSettings( $memberId )
 				);
 	$mysqli->close();
 
+    $_SESSION['memberId'] = $memberId;
     return convertToSettings( $result->fetch_assoc() );
 }
 
 function getMySql()
 {
+    //todo
+    //$mysqli = new mysqli( 'localhost', 'religiv3_admin', '1corinthians3:9', 'religiv3_turing' );
 	$mysqli = new mysqli( 'localhost', 'id125953_dcrouch1', '1corinthians619', 'id125953_auctiondraftonline' );
 	
 	if ( $mysqli->connect_errno )

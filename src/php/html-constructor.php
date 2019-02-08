@@ -18,15 +18,15 @@ function constructInputs( $fileName )
             array_walk( $line, function( &$item ) { $item = trim( $item ); } );
             if ( $line[2] === "number" )
             {
-                echo "<tr><td><label for=\"$line[0]\" class=\"label\">$line[1]: </label></td><td><input  id=\"qb\" type=\"$line[2]\" class=\"input\" style=\"margin: 0\" /></td></tr>\n";
+                echo "<tr><td><label for=\"$line[0]\" class=\"label\">$line[1]: </label></td><td><input  id=\"$line[0]\" type=\"$line[2]\" class=\"input\" style=\"margin: 0\" /></td></tr>\n";
             }
             elseif ( $line[2] === "text" )
             {
-                echo "<tr><td><label for=\"$line[0]\" class=\"label\">$line[1]: </label></td><td><input  id=\"qb\" type=\"$line[2]\" class=\"input\" style=\"margin: 0\" placeholder=\"$line[3]\" /></td></tr>\n";
+                echo "<tr><td><label for=\"$line[0]\" class=\"label\">$line[1]: </label></td><td><input  id=\"$line[0]\" type=\"$line[2]\" class=\"input\" style=\"margin: 0\" placeholder=\"$line[3]\" /></td></tr>\n";
             }
             elseif ( $line[2] === "checkbox" )
             {
-                echo "<tr><td colspan=\"2\" style=\"text-align: left\"><input  id=\"qb\" type=\"$line[2]\" style=\"margin: 0 .5em\" /><label for=\"$line[0]\">$line[1]</label></td></tr>\n";
+                echo "<tr><td colspan=\"2\" style=\"text-align: left\"><input  id=\"$line[0]\" type=\"$line[2]\" style=\"margin: 0 .5em\" /><label for=\"$line[0]\">$line[1]</label></td></tr>\n";
             }
         }
         else
