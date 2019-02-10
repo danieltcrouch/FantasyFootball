@@ -9,7 +9,7 @@ function finishSetup()
                 settings:	JSON.stringify( getSettings() )
             },
             function ( response ) {
-                window.location.href = "https://football.religionandstory.com/draft.php?memberId=" + response;
+                window.location.href = "https://football.religionandstory.com/draft.php?memberId=" + JSON.parse( response );
             }
         );
     }

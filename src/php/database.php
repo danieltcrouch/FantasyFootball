@@ -45,7 +45,6 @@ function storeDraftSettings( $settings )
             $insertTeamNames .= ", ";
         }
         $insertTeamNames .= "('" . $settingsId . "', " . $i . ", '" . $settings->teams->teamNames[$i] . "')";
-        //todo - change this to implode logic and make inline like the others
     }
 
     //semi-colon on all but last query
@@ -82,30 +81,30 @@ function getDraftSettings( $memberId )
 					sl.sl_dl			AS league_dl,
 					sl.sl_lb			AS league_lb,
 					sl.sl_db			AS league_db,
-					sl.sl_wrTe			AS league_wrTe,	
-					sl.sl_wrRb			AS league_wrRb,	
+					sl.sl_wrTe			AS league_wrTe,
+					sl.sl_wrRb			AS league_wrRb,
 					sl.sl_wrRbTe		AS league_wrRbTe,
 					sl.sl_qbWrRbTe		AS league_qbWrRbTe,
-					sl.sl_dlLbDb		AS league_dlLbDb,	
+					sl.sl_dlLbDb		AS league_dlLbDb,
 					sl.sl_bench			AS league_bench,
 					ss.ss_vor			AS scoring_vor,
 					scp.scp_passAttempts		AS scoring_passing_passAttempts,
-					scp.scp_passComp			AS scoring_passing_passComp,	
-					scp.scp_passIncomp			AS scoring_passing_passIncomp,	
-					scp.scp_passYds				AS scoring_passing_passYds,	
-					scp.scp_passTds				AS scoring_passing_passTds,	
+					scp.scp_passComp			AS scoring_passing_passComp,
+					scp.scp_passIncomp			AS scoring_passing_passIncomp,
+					scp.scp_passYds				AS scoring_passing_passYds,
+					scp.scp_passTds				AS scoring_passing_passTds,
 					scp.scp_passTd40			AS scoring_passing_passTd40,
 					scp.scp_passIntercept		AS scoring_passing_passIntercept,
 					scp.scp_passBonus300		AS scoring_passing_passBonus300,
 					scp.scp_passBonus350		AS scoring_passing_passBonus350,
 					scp.scp_passBonus400		AS scoring_passing_passBonus400,
-					scru.scru_rushDsp			AS scoring_rushing_rushDsp,	
-					scru.scru_rushYds			AS scoring_rushing_rushYds,	
+					scru.scru_rushDsp			AS scoring_rushing_rushDsp,
+					scru.scru_rushYds			AS scoring_rushing_rushYds,
 					scru.scru_rushAttempts		AS scoring_rushing_rushAttempts,
-					scru.scru_rushTds	    	AS scoring_rushing_rushTds,	   
-					scru.scru_rushTd40	    	AS scoring_rushing_rushTd40,	   
-					scru.scru_rushConv	    	AS scoring_rushing_rushConv,	   
-					scru.scru_rushSacks			AS scoring_rushing_rushSacks,	
+					scru.scru_rushTds	    	AS scoring_rushing_rushTds,
+					scru.scru_rushTd40	    	AS scoring_rushing_rushTd40,
+					scru.scru_rushConv	    	AS scoring_rushing_rushConv,
+					scru.scru_rushSacks			AS scoring_rushing_rushSacks,
 					scru.scru_rushBonus300		AS scoring_rushing_rushBonus300,
 					scru.scru_rushBonus350		AS scoring_rushing_rushBonus350,
 					scru.scru_rushBonus400		AS scoring_rushing_rushBonus400,
@@ -173,10 +172,8 @@ function getDraftSettings( $memberId )
 
 function getMySql()
 {
-    //todo
-    //$mysqli = new mysqli( 'localhost', 'religiv3_admin', '1corinthians3:9', 'religiv3_turing' );
-	$mysqli = new mysqli( 'localhost', 'id125953_dcrouch1', '1corinthians619', 'id125953_auctiondraftonline' );
-	
+    $mysqli = new mysqli( 'localhost', 'religiv3_admin', '1corinthians3:9', 'religiv3_football' );
+
 	if ( $mysqli->connect_errno )
 	{
 		printf( "Connect failed: %s\n", $mysqli->connect_error );
