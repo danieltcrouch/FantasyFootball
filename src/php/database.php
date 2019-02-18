@@ -56,7 +56,6 @@ function storeDraftSettings( $settings )
 	$mysqli->close();
 
     $_SESSION['memberId'] = $memberId;
-    $memberId = $query;
 	return $memberId;
 }
 

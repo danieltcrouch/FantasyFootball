@@ -22,8 +22,12 @@
     <!--Main-->
     <div class="col-10 main">
         <div class="subtitle center">Set-up Draft Now!</div>
-        <button class="button" style="display: block; width: 10em; margin: 1em auto;" onclick="goToSetup()">Start Set-Up</button>
-        <button class="button" style="display: block; width: 10em; margin: 1em auto;" onclick="login()">Login</button>
+        <div class="center">
+            <button class="button" style="width: 10em; margin-top: 1em" onclick="goToSetup()">Start Set-Up</button>
+        </div>
+        <div class="center">
+            <button class="button" style="width: 10em; margin-top: 1em" onclick="login()">Login</button>
+        </div>
     </div>
 
 </body>

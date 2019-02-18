@@ -76,11 +76,11 @@ function setPlayerHandler()
 {
     $("#player").autocomplete( {source: players} );
     $("#player").keyup( function(e){
-        if(e.keyCode == 13)
+        if(e.keyCode === 13)
         {
             submitPlayerPick();
         }
-        if(e.keyCode == 9)
+        if(e.keyCode === 9)
         {
             fillOptimalPlayer();
         }
@@ -89,8 +89,8 @@ function setPlayerHandler()
 
 function setDraftType( type )
 {
-	$("#draftType").text( "" + type );
-	if ( type == "auction" )
+	$("#draftType").text( "" + type.charAt(0).toUpperCase() + type.slice(1) );
+	if ( type === "auction" )
 	{
 		$("#auctionDisplay").show();
 		$("#standardDisplay").hide();
@@ -108,7 +108,7 @@ function setDraftType( type )
 
 function initializeAuction()
 {
-   updateUserAssets( settings.leagueCap );
+   updateUserAssets( settings.general.leagueCap );
    //updateUserAssets( <?php echo $settings['general']['leagueCap']; ?> );
    //todo - under construction
 }
@@ -187,15 +187,15 @@ function incrementPickCount()
 
 function updatePickCount( pick )
 {
-   if ( pick % teams.length === 0 )
+   if ( pick % settings.teams.length === 0 )
    {
-       var round = pick / teams.length + 1;
+       var round = pick / settings.teams.length + 1;
        $("#round").text( "" + round );
    }
    $("#pick").text( "" + pick );
 
-   var teamIndex = pick % teams.length;
-   $("#team").text( "" + teams[ teamIndex ] );
+   var teamIndex = pick % settings.teams.length;
+   $("#team").text( "" + settings.teams[ teamIndex ] );
    activeTeam = teamIndex;
 }
 
@@ -206,7 +206,7 @@ function fillOptimalPlayer()
 
 function displayInfo()
 {
-   $("#infoModal").toggle();
+   //
 }
 
 function updateInfo()

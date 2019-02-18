@@ -29,31 +29,31 @@ validateMemberId( $_SESSION['memberId'] );
 
     <!--Main-->
     <div class="col-10 main">
-        <div>
+        <div class="center">
        		<label for="draftType" class="label">Draft Type: </label><span id="draftType">Standard</span>
        	</div>
-        <div>
+        <div class="center" style="margin-bottom: 2em">
             <label for="round" class="label">Round: </label><span id="round">1</span>,
             <label for="pick"  class="label">Pick: </label><span id="pick">1</span>
        	</div>
 
-        <div id="standardDisplay">
+        <div id="standardDisplay" class="center">
             <div>
                 <label for="team" class="label">Active Team: </label><span id="team">You</span>
             </div>
-            <button onclick="displayInfo()">Other Info</button><br/>
-            <button onclick="fillOptimalPlayer()">Optimal Player</button><br/>
+            <button class="button" style="width: 10em; margin-bottom: 1em" onclick="displayInfo()">Other Info</button><br/>
+            <button class="button" style="width: 10em; margin-bottom: 1em" onclick="fillOptimalPlayer()">Optimal Player</button><br/>
 
-            <div>
+            <div style="margin-top: 1em">
                 <label for="optimalPlayer" class="label">Optimal Player: </label><span id="optimalPlayer">--</span>
             </div>
 
             <div>
-                <input id="player" type="text" placeholder="Player Name"/>
+                <input id="player" type="text" class="input" placeholder="Player Name"/>
             </div>
-            <button style="margin-top: 2em" onclick="submitPlayerPick()">Submit</button>
+            <button class="button" style="width: 8em; margin-top: 2em" onclick="submitPlayerPick()">Submit</button>
         </div>
-        <div id="auctionDisplay" style="display: none">
+        <div id="auctionDisplay" class="center" style="display: none">
             <div>
                 <label for="money" class="label">User Assets: </label>$<span id="money">0</span>
             </div>
@@ -70,6 +70,5 @@ validateMemberId( $_SESSION['memberId'] );
 <script>
     $(document).ready( function(){ loadSettings( "<?php echo $_GET['memberId']; ?>" ); } );
 </script>
-<?php include( "html/info-modal.html" ); ?>
 <?php includeModals(); ?>
 </html>
