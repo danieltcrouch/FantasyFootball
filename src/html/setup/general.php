@@ -1,6 +1,5 @@
 <div id="general" class="col-10 tab setupTab center" style="display: none">
-	<div class="center" style="font-size: 1.5em">Draft Type</div>
-    <br/>
+	<div class="center" style="font-size: 1.5em; margin-bottom: 1em">Draft Type</div>
 
 	<div class="center" style="margin-bottom: 1em">
 		<button id="standard"  name="draftType" class="button inverseButton" style="width: 6em; margin: .25em;">Standard</button>

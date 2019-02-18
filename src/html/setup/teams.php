@@ -1,6 +1,5 @@
 <div id="teams" class="col-10 tab setupTab center" style="display: none">
-	<div class="center" style="font-size: 1.5em">Teams</div>
-    <br/>
+	<div class="center" style="font-size: 1.5em; margin-bottom: 1em">Teams</div>
 
 	<div>
 		<label for="teamCount" class="label">Number of Teams: </label>
@@ -52,7 +51,7 @@ function updateTeams()
     span.classList.add( "label" );
     nameContainer.appendChild(span);
 
-	for (var i = 1; i <= getTeamCount(); i++)
+	for ( var i = 1; i <= getTeamCount(); i++ )
 	{
 		addTeam( nameContainer, i );
 	}

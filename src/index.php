@@ -22,7 +22,8 @@
     <!--Main-->
     <div class="col-10 main">
         <div class="subtitle center">Set-up Draft Now!</div>
-        <button class="button" style="display: block; width: 10em; margin: 1em auto;" onclick="goToSetup()">Play!</button>
+        <button class="button" style="display: block; width: 10em; margin: 1em auto;" onclick="goToSetup()">Start Set-Up</button>
+        <button class="button" style="display: block; width: 8em; margin: 1em auto;" onclick="login()">Login</button>
     </div>
 
 </body>
@@ -30,6 +31,21 @@
     function goToSetup()
     {
         window.location = "https://football.religionandstory.com/setup.php";
+    }
+
+    function login()
+    {
+        var memberId = "<?php echo $_SESSION['memberId']; ?>";
+        if ( memberId )
+        {
+            window.location = "https://football.religionandstory.com/draft.php?memberId=" + memberId;
+        }
+        else
+        {
+            showPrompt( "Login", "Enter Member ID:", function(id) {
+                window.location = "https://football.religionandstory.com/draft.php?memberId=" + id;
+            } );
+        }
     }
 </script>
 <?php includeModals(); ?>

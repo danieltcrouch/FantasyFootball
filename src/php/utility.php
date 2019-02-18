@@ -1,10 +1,23 @@
 <?php
 session_start();
-include_once( "visualUtility.php" );
+
+
+/********************SESSION********************/
+
+
+function validateMemberId( $memberId )
+{
+	return isset( $memberId ); //todo
+}
+
+
+/********************DATABASE********************/
+
 
 function getGUID()
 {
 	$result = null;
+	//todo - check if this function exists and just use it
     if (function_exists("com_create_guid"))
 	{
         $result = str_replace( "-", "", trim(com_create_guid(), "{}") );
@@ -144,6 +157,10 @@ function getTeamNames( $teamNames )
 	return explode( ",", $teamNames );
 }
 
+
+/********************OTHER********************/
+
+
 function getPlayerCountFromPositions( $positions )
 {
 	return 10; //todo - fix this
@@ -151,7 +168,7 @@ function getPlayerCountFromPositions( $positions )
 
 function getPlayers()
 {
-	//Read from somewhere?
+	//todo - Read from somewhere?
 	return array("Stephen Crouch", "Daniel Crouch", "Michael Crouch", "Tina Crouch", "Jimmy Crouch", "Lauren Crouch", "Crystal Crouch", "Sarah Crouch", "James Crouch", "Elizabeth Crouch", "Lily Crouch");
 }
 ?>

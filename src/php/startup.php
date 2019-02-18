@@ -1,6 +1,9 @@
 <?php
 session_start();
 
+$_SESSION['memberId'] = $_GET['memberId'] ?? $_SESSION['memberId'];
+//$_SESSION['memberId'] = isset($_GET['memberId']) ? $_GET['memberId'] : $_SESSION['memberId'];
+
 $project    = "fantasyFootball";
 $siteTitle  = "Fantasy Value Draft";
 $pageTitle  = "Fantasy Value Draft";
@@ -21,6 +24,7 @@ function includeHeadInfo()
 
 function includeHeader()
 {
+    //todo - different header
     global $homeUrl;
     include("$_SERVER[DOCUMENT_ROOT]/../common/html/header.php");
 }

@@ -32,6 +32,8 @@
             <button id="teams"   name="setup" class="col-2h navButton inverseTab center">Teams</button>
         </div>
 
+        <!-- todo - add autoFill from pre-sets button -->
+
         <?php include("html/setup/general.php"); ?>
        	<?php include("html/setup/league.php"); ?>
        	<?php include("html/setup/scoring.php"); ?>
@@ -45,9 +47,9 @@
 
 </body>
 <script>
-    $(document).ready( function(){ hideAllTabs(); } );
+    $(document).ready( function(){ loadSetup( "<?php echo $_GET['memberId']; ?>" ); } );
 
-    setTabCallbackToDisplay( "setup" );
+    setTabCallbackToDisplay( 'setup' );
 
     $('.inverseTab').click( function() {
         if ( this.id === "teams" )

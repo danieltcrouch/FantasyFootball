@@ -1,3 +1,160 @@
+/********************AUTOFILL********************/
+
+
+function preFill( preFillType )
+{
+    $.post(
+        "php/controller.php",
+        {
+            action: 	 "getPreFillSettings",
+            preFillType: preFillType
+        },
+        function ( response ) {
+            response = JSON.parse( response );
+            autoFill( response );
+        }
+    );
+}
+
+
+/********************LOAD********************/
+
+
+function loadSetup( memberId )
+{
+    if ( memberId )
+    {
+        $.post(
+            "php/controller.php",
+            {
+                action: 	"getDraftSettings",
+                memberId:	memberId
+            },
+            function ( response ) {
+                response = JSON.parse( response );
+                autoFill( response );
+            }
+        );
+    }
+    else
+    {
+        hideAllTabs();
+    }
+}
+
+function autoFill( settings )
+{
+    //GENERAL
+    $( '#' + settings.general.draftType ).click();
+    //Season
+    //Position
+    //ADP
+    $( "#leagueCap" ).val( settings.general.leagueCap );
+    $( "#aav>option:eq(" + settings.general.aav + ")" ).attr( "selected", true );
+
+    //LEAGUE
+    $( "#qb" ).val(       settings.league.qb );
+    $( "#rb" ).val(       settings.league.rb );
+    $( "#wr" ).val(       settings.league.wr );
+    $( "#te" ).val(       settings.league.te );
+    $( "#k" ).val(        settings.league.k );
+    $( "#dst" ).val(      settings.league.dst );
+    $( "#dl" ).val(       settings.league.dl );
+    $( "#lb" ).val(       settings.league.lb );
+    $( "#db" ).val(       settings.league.db );
+    $( "#wrTe" ).val(     settings.league.wrTe );
+    $( "#wrRb" ).val(     settings.league.wrRb );
+    $( "#wrRbTe" ).val(   settings.league.wrRbTe );
+    $( "#qbWrRbTe" ).val( settings.league.qbWrRbTe );
+    $( "#dlLbDb" ).val(   settings.league.dlLbDb );
+    $( "#bench" ).val(    settings.league.bench );
+
+    //SCORING
+    $( "#passAttempts" ).val(   settings.scoring.passing.passAttempts );
+    $( "#passComp" ).val(       settings.scoring.passing.passComp );
+    $( "#passIncomp" ).val(     settings.scoring.passing.passIncomp );
+    $( "#passYds" ).val(        settings.scoring.passing.passYds );
+    $( "#passTds" ).val(        settings.scoring.passing.passTds );
+    $( "#passTd40" ).val(       settings.scoring.passing.passTd40 );
+    $( "#passIntercept" ).val(  settings.scoring.passing.passIntercept );
+    $( "#passBonus300" ).val(   settings.scoring.passing.passBonus300 );
+    $( "#passBonus350" ).val(   settings.scoring.passing.passBonus350 );
+    $( "#passBonus400" ).val(   settings.scoring.passing.passBonus400 );
+
+    $( "#rushDsp" ).prop( "checked", settings.scoring.rushing.rushDsp );
+    $( "#rushYds" ).val(        settings.scoring.rushing.rushYds );
+    $( "#rushAttempts" ).val(   settings.scoring.rushing.rushAttempts );
+    $( "#rushTds" ).val(        settings.scoring.rushing.rushTds );
+    $( "#rushTd40" ).val(       settings.scoring.rushing.rushTd40 );
+    $( "#rushConv" ).val(       settings.scoring.rushing.rushConv );
+    $( "#rushSacks" ).val(      settings.scoring.rushing.rushSacks );
+    $( "#rushBonus300" ).val(   settings.scoring.rushing.rushBonus300 );
+    $( "#rushBonus350" ).val(   settings.scoring.rushing.rushBonus350 );
+    $( "#rushBonus400" ).val(   settings.scoring.rushing.rushBonus400 );
+
+    $( "#receiveDsp" ).prop( "checked", settings.scoring.receiving.receiveDsp );
+    $( "#receiveYds" ).val(      settings.scoring.receiving.receiveYds );
+    $( "#receiveComp" ).val(     settings.scoring.receiving.receiveComp );
+    $( "#receiveTds" ).val(      settings.scoring.receiving.receiveTds );
+    $( "#receiveTd40" ).val(     settings.scoring.receiving.receiveTd40 );
+    $( "#receiveBonus300" ).val( settings.scoring.receiving.receiveBonus300 );
+    $( "#receiveBonus350" ).val( settings.scoring.receiving.receiveBonus350 );
+    $( "#receiveBonus400" ).val( settings.scoring.receiving.receiveBonus400 );
+
+    $( "#fumbleDsp" ).prop( "checked", settings.scoring.fumbles.fumbleDsp );
+    $( "#fumbles" ).val( settings.scoring.fumbles.fumbles );
+
+    $( "#kickEx" ).val(     settings.scoring.kicking.kickEx );
+    $( "#kickFg19" ).val(   settings.scoring.kicking.kickFg19 );
+    $( "#kickFg29" ).val(   settings.scoring.kicking.kickFg29 );
+    $( "#kickFg39" ).val(   settings.scoring.kicking.kickFg39 );
+    $( "#kickFg49" ).val(   settings.scoring.kicking.kickFg49 );
+    $( "#kickFg50" ).val(   settings.scoring.kicking.kickFg50 );
+    $( "#kickFgMiss" ).val( settings.scoring.kicking.kickFgMiss );
+
+    $( "#returnDsp" ).prop( "checked", settings.scoring.returning.returnDsp );
+    $( "#returnYds" ).val( settings.scoring.returning.returnYds );
+    $( "#returnTds" ).val( settings.scoring.returning.returnTds );
+
+    $( "#idpDsp" ).prop( "checked", settings.scoring.idp.idpDsp );
+    $( "#idpTackleSolo" ).val(   settings.scoring.idp.idpTackleSolo );
+    $( "#idpTackleAssist" ).val( settings.scoring.idp.idpTackleAssist );
+    $( "#idpSack" ).val(         settings.scoring.idp.idpSack );
+    $( "#idpForced" ).val(       settings.scoring.idp.idpForced );
+    $( "#idpRecovered" ).val(    settings.scoring.idp.idpRecovered );
+    $( "#idpIntercept" ).val(    settings.scoring.idp.idpIntercept );
+    $( "#idpDeflect" ).val(      settings.scoring.idp.idpDeflect );
+    $( "#idpTds" ).val(          settings.scoring.idp.idpTds );
+    $( "#idpSafety" ).val(       settings.scoring.idp.idpSafety );
+
+    $( "#defSack" ).val(        settings.scoring.defense.defSack );
+    $( "#defRecovered" ).val(   settings.scoring.defense.defRecovered );
+    $( "#defIntercept" ).val(   settings.scoring.defense.defIntercept );
+    $( "#defTds" ).val(         settings.scoring.defense.defTds );
+    $( "#defSafety" ).val(      settings.scoring.defense.defSafety );
+    $( "#defBlock" ).val(       settings.scoring.defense.defBlock );
+    $( "#defYds" ).val(         settings.scoring.defense.defYds );
+
+    $( "#vor" ).val( settings.scoring.vor );
+
+    //TEAMS
+    $( "#teamCount>option:eq(" + settings.teams.count + ")" ).attr( "selected", true );
+    $( "#userIndex>option:eq(" + settings.teams.userIndex + ")" ).attr( "selected", true );
+    setTeamNames( settings.teams.teamNames );
+}
+
+function setTeamNames( teamNames )
+{
+    for ( var i = 1; i <= teamNames.length ; i++ )
+   	{
+   		$( "#t" + i ).val( teamNames[i-1] );
+   	}
+}
+
+
+/********************SUBMIT********************/
+
+
 function finishSetup()
 {
     if ( isValid() )
@@ -83,24 +240,6 @@ function getLeague()
         result[this.id] = this.value;
     } );
     return result;
-
-    // return {
-    //     qb: parseInt(       $( "#qb" ).val().replace(       /\D/g, '' ) ) || 0,
-    //     rb: parseInt(       $( "#rb" ).val().replace(       /\D/g, '' ) ) || 0,
-    //     wr: parseInt(       $( "#wr" ).val().replace(       /\D/g, '' ) ) || 0,
-    //     te: parseInt(       $( "#te" ).val().replace(       /\D/g, '' ) ) || 0,
-    //     k: parseInt(        $( "#k" ).val().replace(        /\D/g, '' ) ) || 0,
-    //     dst: parseInt(      $( "#dst" ).val().replace(      /\D/g, '' ) ) || 0,
-    //     dl: parseInt(       $( "#dl" ).val().replace(       /\D/g, '' ) ) || 0,
-    //     lb: parseInt(       $( "#lb" ).val().replace(       /\D/g, '' ) ) || 0,
-    //     db: parseInt(       $( "#db" ).val().replace(       /\D/g, '' ) ) || 0,
-    //     wrTe: parseInt(     $( "#wrTe" ).val().replace(     /\D/g, '' ) ) || 0,
-    //     wrRb: parseInt(     $( "#wrRb" ).val().replace(     /\D/g, '' ) ) || 0,
-    //     wrRbTe: parseInt(   $( "#wrRbTe" ).val().replace(   /\D/g, '' ) ) || 0,
-    //     qbWrRbTe: parseInt( $( "#qbWrRbTe" ).val().replace( /\D/g, '' ) ) || 0,
-    //     dlLbDb: parseInt(   $( "#dlLbDb" ).val().replace(   /\D/g, '' ) ) || 0,
-    //     bench: parseInt(    $( "#bench" ).val().replace(    /\D/g, '' ) ) || 0
-    // };
 }
 
 function getScoring()
@@ -111,129 +250,7 @@ function getScoring()
         result[this.id] = this.value;
     } );
     return result;
-
-    // return {
-    //     passing: getPassing(),
-    //     rushing: getRushing(),
-    //     receiving: getReceiving(),
-    //     fumbles: getFumbles(),
-    //     kicking: getKicking(),
-    //     returns: getReturns(),
-    //     idp: getIDP(),
-    //     defense: getDefense(),
-    //     vor: getVOR()
-    // };
 }
-
-// function getPassing()
-// {
-//     return {
-//         passAttempts: parseInt( $( "#passAttempts" ).val().replace( /\D/g, '' ) ) || 0,
-//         passComp: parseInt( $( "#passComp" ).val().replace( /\D/g, '' ) ) || 0,
-//         passIncomp: parseInt( $( "#passIncomp" ).val().replace( /\D/g, '' ) ) || 0,
-//         passYds: $( "#passYds" ).val(),
-//         passTds: parseInt( $( "#passTds" ).val().replace( /\D/g, '' ) ) || 0,
-//         passTd40: parseInt( $( "#passTd40" ).val().replace( /\D/g, '' ) ) || 0,
-//         passIntercept: parseInt( $( "#passIntercept" ).val().replace( /\D/g, '' ) ) || 0,
-//         passBonus300: parseInt( $( "#passBonus300" ).val().replace( /\D/g, '' ) ) || 0,
-//         passBonus350: parseInt( $( "#passBonus350" ).val().replace( /\D/g, '' ) ) || 0,
-//         passBonus400: parseInt( $( "#passBonus400" ).val().replace( /\D/g, '' ) ) || 0
-//     };
-// }
-//
-// function getRushing()
-// {
-//     return {
-//         rushDsp: $( "#rushDsp" ).is( ":checked" ).toString(),
-//         rushYds: $( "#rushYds" ).val(),
-//         rushAttempts: parseInt( $( "#rushAttempts" ).val().replace( /\D/g, '' ) ) || 0,
-//         rushTds: parseInt( $( "#rushTds" ).val().replace( /\D/g, '' ) ) || 0,
-//         rushTd40: parseInt( $( "#rushTd40" ).val().replace( /\D/g, '' ) ) || 0,
-//         rushConv: parseInt( $( "#rushConv" ).val().replace( /\D/g, '' ) ) || 0,
-//         rushSacks: parseInt( $( "#rushSacks" ).val().replace( /\D/g, '' ) ) || 0,
-//         rushBonus300: parseInt( $( "#rushBonus300" ).val().replace( /\D/g, '' ) ) || 0,
-//         rushBonus350: parseInt( $( "#rushBonus350" ).val().replace( /\D/g, '' ) ) || 0,
-//         rushBonus400: parseInt( $( "#rushBonus400" ).val().replace( /\D/g, '' ) ) || 0
-//     };
-// }
-//
-// function getReceiving()
-// {
-//     return {
-//         receiveDsp: $( "#receiveDsp" ).is( ":checked" ).toString(),
-//         receiveYds: $( "#receiveYds" ).val(),
-//         receiveComp: parseInt( $( "#receiveComp" ).val().replace( /\D/g, '' ) ) || 0,
-//         receiveTds: parseInt( $( "#receiveTds" ).val().replace( /\D/g, '' ) ) || 0,
-//         receiveTd40: parseInt( $( "#receiveTd40" ).val().replace( /\D/g, '' ) ) || 0,
-//         receiveBonus300: parseInt( $( "#receiveBonus300" ).val().replace( /\D/g, '' ) ) || 0,
-//         receiveBonus350: parseInt( $( "#receiveBonus350" ).val().replace( /\D/g, '' ) ) || 0,
-//         receiveBonus400: parseInt( $( "#receiveBonus400" ).val().replace( /\D/g, '' ) ) || 0
-//     };
-// }
-//
-// function getFumbles()
-// {
-//     return {
-//         fumbleDsp: $( "#fumbleDsp" ).is( ":checked" ).toString(),
-//         fumbles: parseInt( $( "#fumbles" ).val().replace( /\D/g, '' ) ) || 0
-//     };
-// }
-//
-// function getKicking()
-// {
-//     return {
-//         kickEx: parseInt( $( "#kickEx" ).val().replace( /\D/g, '' ) ) || 0,
-//         kickFg19: parseInt( $( "#kickFg19" ).val().replace( /\D/g, '' ) ) || 0,
-//         kickFg29: parseInt( $( "#kickFg29" ).val().replace( /\D/g, '' ) ) || 0,
-//         kickFg39: parseInt( $( "#kickFg39" ).val().replace( /\D/g, '' ) ) || 0,
-//         kickFg49: parseInt( $( "#kickFg49" ).val().replace( /\D/g, '' ) ) || 0,
-//         kickFg50: parseInt( $( "#kickFg50" ).val().replace( /\D/g, '' ) ) || 0,
-//         kickFgMiss: parseInt( $( "#kickFgMiss" ).val().replace( /\D/g, '' ) ) || 0
-//     };
-// }
-//
-// function getReturns()
-// {
-//     return {
-//         returnDsp: $( "#returnDsp" ).is( ":checked" ).toString(),
-//         returnYds: $( "#returnYds" ).val(),
-//         returnTds: parseInt( $( "#returnTds" ).val().replace( /\D/g, '' ) ) || 0
-//     };
-// }
-//
-// function getIDP()
-// {
-//     return {
-//         idpDsp: $( "#idpDsp" ).is( ":checked" ).toString(),
-//         idpTackleSolo: parseInt( $( "#idpTackleSolo" ).val().replace( /\D/g, '' ) ) || 0,
-//         idpTackleAssist: parseInt( $( "#idpTackleAssist" ).val().replace( /\D/g, '' ) ) || 0,
-//         idpSack: parseInt( $( "#idpSack" ).val().replace( /\D/g, '' ) ) || 0,
-//         idpForced: parseInt( $( "#idpForced" ).val().replace( /\D/g, '' ) ) || 0,
-//         idpRecovered: parseInt( $( "#idpRecovered" ).val().replace( /\D/g, '' ) ) || 0,
-//         idpIntercept: parseInt( $( "#idpIntercept" ).val().replace( /\D/g, '' ) ) || 0,
-//         idpDeflect: parseInt( $( "#idpDeflect" ).val().replace( /\D/g, '' ) ) || 0,
-//         idpTds: parseInt( $( "#idpTds" ).val().replace( /\D/g, '' ) ) || 0,
-//         idpSafety: parseInt( $( "#idpSafety" ).val().replace( /\D/g, '' ) ) || 0
-//     };
-// }
-//
-// function getDefense()
-// {
-//     return {
-//         defSack: parseInt( $( "#defSack" ).val().replace( /\D/g, '' ) ) || 0,
-//         defRecovered: parseInt( $( "#defRecovered" ).val().replace( /\D/g, '' ) ) || 0,
-//         defIntercept: parseInt( $( "#defIntercept" ).val().replace( /\D/g, '' ) ) || 0,
-//         defTds: parseInt( $( "#defTds" ).val().replace( /\D/g, '' ) ) || 0,
-//         defSafety: parseInt( $( "#defSafety" ).val().replace( /\D/g, '' ) ) || 0,
-//         defBlock: parseInt( $( "#defBlock" ).val().replace( /\D/g, '' ) ) || 0,
-//         defYds: $( "#defYds" ).val()
-//     };
-// }
-//
-// function getVOR()
-// {
-//     return $( "#vor" ).val();
-// }
 
 function getTeams()
 {
