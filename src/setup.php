@@ -32,7 +32,11 @@
             <button id="teams"   name="setup" class="col-2h navButton inverseTab center">Teams</button>
         </div>
 
-        <!-- todo - add autoFill from pre-sets button -->
+        <!--
+        todo - add autoFill from pre-sets button
+        Should this be relative to two middle sections?
+        Simply use load call and have in DB member settings with special ID (e.g. "_espn_")
+        -->
 
         <?php include("html/setup/general.php"); ?>
        	<?php include("html/setup/league.php"); ?>
@@ -40,6 +44,7 @@
        	<?php include("html/setup/teams.php"); ?>
 
         <div class="col-10 center">
+            <!-- todo - make next go to top of page -->
             <button id="next" class="button" style="width: 6em" onclick="displayNextTab( 'setup' )">Next</button>
             <button id="finish" class="button" style="width: 6em; display: none" onclick="finishSetup()">Finish</button>
         </div>

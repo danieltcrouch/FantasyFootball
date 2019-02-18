@@ -246,8 +246,7 @@ function getScoring()
 {
     var result = {};
     $( "#scoring input" ).each( function() {
-
-        result[this.id] = this.value;
+        result[this.id] = this.type === "checkbox" ? this.checked : this.value;
     } );
     return result;
 }

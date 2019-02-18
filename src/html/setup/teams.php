@@ -40,6 +40,7 @@ function updateTeams()
         indexSelect.add( option );
     }
 
+    //todo - causes to lose already entered names
 	var nameContainer = document.getElementById("teamNames");
 	while (nameContainer.hasChildNodes())
 	{

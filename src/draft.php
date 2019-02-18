@@ -1,6 +1,6 @@
 <?php include("$_SERVER[DOCUMENT_ROOT]/php/startup.php"); ?>
 <?php
-include_once( "utility.php" );
+include_once( "php/utility.php" );
 validateMemberId( $_SESSION['memberId'] );
 ?>
 <!DOCTYPE html>
@@ -61,15 +61,15 @@ validateMemberId( $_SESSION['memberId'] );
         </div>
 
         <?php
-        include_once( 'php/html-constructor.php' );
+        include_once( "php/html-constructor.php" );
         //todo - generateTables( $settings['teams']['count'], $settings['league'], $teamNames );
         ?>
     </div>
 
 </body>
 <script>
-    loadSettings( "<?php echo $_GET['memberId']; ?>" );
+    $(document).ready( function(){ loadSettings( "<?php echo $_GET['memberId']; ?>" ); } );
 </script>
-<?php include("html/info-modal.html"); ?>
+<?php include( "html/info-modal.html" ); ?>
 <?php includeModals(); ?>
 </html>

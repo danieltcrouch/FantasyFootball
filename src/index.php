@@ -23,7 +23,7 @@
     <div class="col-10 main">
         <div class="subtitle center">Set-up Draft Now!</div>
         <button class="button" style="display: block; width: 10em; margin: 1em auto;" onclick="goToSetup()">Start Set-Up</button>
-        <button class="button" style="display: block; width: 8em; margin: 1em auto;" onclick="login()">Login</button>
+        <button class="button" style="display: block; width: 10em; margin: 1em auto;" onclick="login()">Login</button>
     </div>
 
 </body>
@@ -43,7 +43,10 @@
         else
         {
             showPrompt( "Login", "Enter Member ID:", function(id) {
-                window.location = "https://football.religionandstory.com/draft.php?memberId=" + id;
+                if ( id )
+                {
+                    window.location = "https://football.religionandstory.com/draft.php?memberId=" + id;
+                }
             } );
         }
     }

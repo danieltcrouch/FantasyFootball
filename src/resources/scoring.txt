@@ -5,7 +5,7 @@ passIncomp|Pass Incompletions|number
 HR
 passYds|Passing Yds (Pts/Yds)|text|1/25
 passTds|Pass TDs|number
-passTd40|40 Yd Pass Td|number
+passTd40|40 Yd Pass TD|number
 HR
 passIntercept|Interceptions|number
 HR
@@ -55,7 +55,7 @@ kickFgMiss|Missed Field Goals|number
 Returns
 returnDsp|Different Scoring by Position|checkbox
 HR
-returnYds|Return Yds (Pts/Yds)|text
+returnYds|Return Yds (Pts/Yds)|text|1/10
 returnTds|Return TDs|number
 IDP Scoring
 idpDsp|Different Scoring by Position|checkbox

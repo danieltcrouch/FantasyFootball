@@ -20,21 +20,21 @@ function storeDraftSettings( $settings )
 											 VALUES ('" . $settingsId . "', " . $settings->teams->count . ", " . $settings->teams->userIndex . ")";
 	
 	$insertPassing	= "INSERT INTO scoringPassing	(s_id, scp_passAttempts, scp_passComp, scp_passIncomp, scp_passYds, scp_passTds, scp_passTd40, scp_passIntercept, scp_passBonus300, scp_passBonus350, scp_passBonus400)
-											 VALUES ('" . $settingsId . "', " . $settings->scoring->passing->passAttempts . ", " . $settings->scoring->passing->passComp . ", " . $settings->scoring->passing->passIncomp . ", '" . $settings->scoring->passing->passYds . "', " . $settings->scoring->passing->passTds . ", " . $settings->scoring->passing->passTd40 . ", " . $settings->scoring->passing->passIntercept . ", " . $settings->scoring->passing->passBonus300 . ", " . $settings->scoring->passing->passBonus350 . ", " . $settings->scoring->passing->passBonus400 . ")";
+											 VALUES ('" . $settingsId . "', " . $settings->scoring->passAttempts . ", " . $settings->scoring->passComp . ", " . $settings->scoring->passIncomp . ", '" . $settings->scoring->passYds . "', " . $settings->scoring->passTds . ", " . $settings->scoring->passTd40 . ", " . $settings->scoring->passIntercept . ", " . $settings->scoring->passBonus300 . ", " . $settings->scoring->passBonus350 . ", " . $settings->scoring->passBonus400 . ")";
 	$insertRushing	= "INSERT INTO scoringRushing	(s_id, scru_rushDsp, scru_rushYds, scru_rushAttempts, scru_rushTds, scru_rushTd40, scru_rushConv, scru_rushSacks, scru_rushBonus300, scru_rushBonus350, scru_rushBonus400)
-											 VALUES ('" . $settingsId . "', " . $settings->scoring->rushing->rushDsp . ", '" . $settings->scoring->rushing->rushYds . "', " . $settings->scoring->rushing->rushAttempts . ", " . $settings->scoring->rushing->rushTds . ", " . $settings->scoring->rushing->rushTd40 . ", " . $settings->scoring->rushing->rushConv . ", " . $settings->scoring->rushing->rushSacks . ", " . $settings->scoring->rushing->rushBonus300 . ", " . $settings->scoring->rushing->rushBonus350 . ", " . $settings->scoring->rushing->rushBonus400 . ")";
+											 VALUES ('" . $settingsId . "', " . $settings->scoring->rushDsp . ", '" . $settings->scoring->rushYds . "', " . $settings->scoring->rushAttempts . ", " . $settings->scoring->rushTds . ", " . $settings->scoring->rushTd40 . ", " . $settings->scoring->rushConv . ", " . $settings->scoring->rushSacks . ", " . $settings->scoring->rushBonus300 . ", " . $settings->scoring->rushBonus350 . ", " . $settings->scoring->rushBonus400 . ")";
 	$insertReceiving= "INSERT INTO scoringReceiving	(s_id, scrc_receiveDsp, scrc_receiveYds, scrc_receiveComp, scrc_receiveTds, scrc_receiveTd40, scrc_receiveBonus300, scrc_receiveBonus350, scrc_receiveBonus400)
-											 VALUES ('" . $settingsId . "', " . $settings->scoring->receiving->receiveDsp . ", '" . $settings->scoring->receiving->receiveYds . "', " . $settings->scoring->receiving->receiveComp . ", " . $settings->scoring->receiving->receiveTds . ", " . $settings->scoring->receiving->receiveTd40 . ", " . $settings->scoring->receiving->receiveBonus300 . ", " . $settings->scoring->receiving->receiveBonus350 . ", " . $settings->scoring->receiving->receiveBonus400 . ")";
+											 VALUES ('" . $settingsId . "', " . $settings->scoring->receiveDsp . ", '" . $settings->scoring->receiveYds . "', " . $settings->scoring->receiveComp . ", " . $settings->scoring->receiveTds . ", " . $settings->scoring->receiveTd40 . ", " . $settings->scoring->receiveBonus300 . ", " . $settings->scoring->receiveBonus350 . ", " . $settings->scoring->receiveBonus400 . ")";
 	$insertFumbles	= "INSERT INTO scoringFumbles	(s_id, scf_fumbleDsp, scf_fumbles)
-											 VALUES ('" . $settingsId . "', " . $settings->scoring->fumbles->fumbleDsp . ", " . $settings->scoring->fumbles->fumbles . ")";
+											 VALUES ('" . $settingsId . "', " . $settings->scoring->fumbleDsp . ", " . $settings->scoring->fumbles . ")";
 	$insertKicking	= "INSERT INTO scoringKicking	(s_id, sck_kickEx, sck_kickFg19, sck_kickFg29, sck_kickFg39, sck_kickFg49, sck_kickFg50, sck_kickFgMiss)
-											 VALUES ('" . $settingsId . "', " . $settings->scoring->kicking->kickEx . ", " . $settings->scoring->kicking->kickFg19 . ", " . $settings->scoring->kicking->kickFg29 . ", " . $settings->scoring->kicking->kickFg39 . ", " . $settings->scoring->kicking->kickFg49 . ", " . $settings->scoring->kicking->kickFg50 . ", " . $settings->scoring->kicking->kickFgMiss . ")";
+											 VALUES ('" . $settingsId . "', " . $settings->scoring->kickEx . ", " . $settings->scoring->kickFg19 . ", " . $settings->scoring->kickFg29 . ", " . $settings->scoring->kickFg39 . ", " . $settings->scoring->kickFg49 . ", " . $settings->scoring->kickFg50 . ", " . $settings->scoring->kickFgMiss . ")";
 	$insertReturns	= "INSERT INTO scoringReturns	(s_id, scrt_returnDsp, scrt_returnYds, scrt_returnTds)
-											 VALUES ('" . $settingsId . "', " . $settings->scoring->returns->returnDsp . ", '" . $settings->scoring->returns->returnYds . "', " . $settings->scoring->returns->returnTds . ")";
+											 VALUES ('" . $settingsId . "', " . $settings->scoring->returnDsp . ", '" . $settings->scoring->returnYds . "', " . $settings->scoring->returnTds . ")";
 	$insertIdp		= "INSERT INTO scoringIdp		(s_id, sci_idpDsp, sci_idpTackleSolo, sci_idpTackleAssist, sci_idpSack, sci_idpForced, sci_idpRecovered, sci_idpIntercept, sci_idpDeflect, sci_idpTds, sci_idpSafety)
-											 VALUES ('" . $settingsId . "', " . $settings->scoring->idp->idpDsp . ", " . $settings->scoring->idp->idpTackleSolo . ", " . $settings->scoring->idp->idpTackleAssist . ", " . $settings->scoring->idp->idpSack . ", " . $settings->scoring->idp->idpForced . ", " . $settings->scoring->idp->idpRecovered . ", " . $settings->scoring->idp->idpIntercept . ", " . $settings->scoring->idp->idpDeflect . ", " . $settings->scoring->idp->idpTds . ", " . $settings->scoring->idp->idpSafety . ")";
+											 VALUES ('" . $settingsId . "', " . $settings->scoring->idpDsp . ", " . $settings->scoring->idpTackleSolo . ", " . $settings->scoring->idpTackleAssist . ", " . $settings->scoring->idpSack . ", " . $settings->scoring->idpForced . ", " . $settings->scoring->idpRecovered . ", " . $settings->scoring->idpIntercept . ", " . $settings->scoring->idpDeflect . ", " . $settings->scoring->idpTds . ", " . $settings->scoring->idpSafety . ")";
 	$insertDefense	= "INSERT INTO scoringDefense	(s_id, scd_defSack, scd_defRecovered, scd_defIntercept, scd_defTds, scd_defSafety, scd_defBlock, scd_defYds)
-											 VALUES ('" . $settingsId . "', " . $settings->scoring->defense->defSack . ", " . $settings->scoring->defense->defRecovered . ", " . $settings->scoring->defense->defIntercept . ", " . $settings->scoring->defense->defTds . ", " . $settings->scoring->defense->defSafety . ", " . $settings->scoring->defense->defBlock . ", '" . $settings->scoring->defense->defYds . "')";
+											 VALUES ('" . $settingsId . "', " . $settings->scoring->defSack . ", " . $settings->scoring->defRecovered . ", " . $settings->scoring->defIntercept . ", " . $settings->scoring->defTds . ", " . $settings->scoring->defSafety . ", " . $settings->scoring->defBlock . ", '" . $settings->scoring->defYds . "')";
 	
 	$insertTeamNames= "INSERT INTO teamNames        (s_id, tn_teamIndex, tn_teamName)
                                              VALUES ";
@@ -56,6 +56,7 @@ function storeDraftSettings( $settings )
 	$mysqli->close();
 
     $_SESSION['memberId'] = $memberId;
+    $memberId = $query;
 	return $memberId;
 }
 
@@ -149,18 +150,18 @@ function getDraftSettings( $memberId )
 					st.st_userIndex		AS teams_userIndex,
 					GROUP_CONCAT(tn.tn_teamName ORDER BY tn.tn_teamIndex ASC SEPARATOR ',') AS teams_teamNames
 				FROM members m
-				JOIN settingsGeneral sg ON m.s_id = sg.s_id
-				JOIN settingsLeague sl ON m.s_id = sl.s_id
-				JOIN settingsScoring ss ON m.s_id = ss.s_id
-					JOIN scoringPassing scp ON m.s_id = scp.s_id
-					JOIN scoringRushing scru ON m.s_id = scru.s_id
-					JOIN scoringReceiving scrc ON m.s_id = scrc.s_id
-					JOIN scoringFumbles scf ON m.s_id = scf.s_id
-					JOIN scoringKicking sck ON m.s_id = sck.s_id
-					JOIN scoringReturns scrt ON m.s_id = scrt.s_id
-					JOIN scoringIdp sci ON m.s_id = sci.s_id
-					JOIN scoringDefense scd ON m.s_id = scd.s_id
-				JOIN settingsTeams st ON m.s_id = st.s_id
+				LEFT JOIN settingsGeneral sg ON m.s_id = sg.s_id
+				LEFT JOIN settingsLeague sl ON m.s_id = sl.s_id
+				LEFT JOIN settingsScoring ss ON m.s_id = ss.s_id
+					LEFT JOIN scoringPassing scp ON m.s_id = scp.s_id
+					LEFT JOIN scoringRushing scru ON m.s_id = scru.s_id
+					LEFT JOIN scoringReceiving scrc ON m.s_id = scrc.s_id
+					LEFT JOIN scoringFumbles scf ON m.s_id = scf.s_id
+					LEFT JOIN scoringKicking sck ON m.s_id = sck.s_id
+					LEFT JOIN scoringReturns scrt ON m.s_id = scrt.s_id
+					LEFT JOIN scoringIdp sci ON m.s_id = sci.s_id
+					LEFT JOIN scoringDefense scd ON m.s_id = scd.s_id
+				LEFT JOIN settingsTeams st ON m.s_id = st.s_id
 					LEFT JOIN teamNames tn ON m.s_id = tn.s_id
 				WHERE m.m_id = '" . $memberId . "'"
 				);

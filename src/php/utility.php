@@ -7,7 +7,11 @@ session_start();
 
 function validateMemberId( $memberId )
 {
-	return isset( $memberId ); //todo
+	if ( empty( $memberId ) ) //todo
+	{
+		header("Location: http://football.religionandstory.com");
+		die();
+	}
 }
 
 
