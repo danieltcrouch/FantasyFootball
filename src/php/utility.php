@@ -149,7 +149,7 @@ function convertToSettings( $flatSettings )
 		'teams'		=> [
 			'count'		=> $flatSettings['teams_count'],
 			'userIndex'	=> $flatSettings['teams_userIndex'],
-			'teamNames'	=> getTeamNames( $flatSettings['teamNames'] )
+			'teamNames'	=> getTeamNames( $flatSettings['teams_teamNames'] )
 		]
 	];
 	

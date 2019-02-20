@@ -1,19 +1,10 @@
 var settings;
 var players;
 
-var optimalInfo;
-
 var activeTeam;
 
 var FINAL_PICK;
 var MAX_PLAYERS;
-
-/*
-TODO:
-Validate each field by input type
-    String needs to not allow comma so that that it can be put into array
-Send email with link to draft page and member ID
-*/
 
 function loadSettings( memberId )
 {
@@ -27,11 +18,10 @@ function loadSettings( memberId )
             },
             function ( response ) {
                 settings = JSON.parse( response );
-                setDraftType( settings.general.draftType );
-                loadPlayers();
+                MAX_PLAYERS = 3; //<?php echo getPlayerCountFromPositions( $settings['league'] ); ?>
+                FINAL_PICK = settings.teams.count * MAX_PLAYERS;
 
-                MAX_PLAYERS = 0; //<?php echo getPlayerCountFromPositions( $settings['league'] ); ?>
-                FINAL_PICK = teams.length * MAX_PLAYERS;
+                loadPlayers();
             }
         );
     }
@@ -50,26 +40,11 @@ function loadPlayers()
         },
         function ( response ) {
             players = JSON.parse( response );
+
             setPlayerHandler();
+            setDraftType( settings.general.draftType );
         }
     );
-}
-
-function getOptimalPlayer() //todo - all of this...
-{
-	var player = players[Math.floor(Math.random()*players.length)];;
-	$("#player").val( player );
-	$("#player").focus();
-}
-
-function getAvailablePlayers()
-{
-	return players;
-}
-
-function isValidPlayerPick()
-{
-	return true;
 }
 
 function setPlayerHandler()
@@ -94,23 +69,92 @@ function setDraftType( type )
 	{
 		$("#auctionDisplay").show();
 		$("#standardDisplay").hide();
-           initializeAuction();
+        initializeAuction();
 	}
 	else
 	{
 		$("#auctionDisplay").hide();
 		$("#standardDisplay").show();
-           initializeStandard();
+        initializeStandard();
 	}
 }
 
-//***AUCTION***//
+
+/********************STANDARD********************/
+
+
+function initializeStandard()
+{
+   updatePickCount( 0 );
+   getNextPick();
+}
+
+function submitPlayerPick()
+{
+   var player = $("#player").val().trim;
+   if ( isValidPlayerPick( player ) )
+   {
+       insertPlayer( player );
+       players.splice( players.indexOf(player), 1 );
+       getNextPick();
+   }
+   else
+   {
+       alert( "You cannot choose this player." );
+   }
+}
+
+function insertPlayer( player )
+{
+   //todo - get player position
+   //place player in that cell
+   //else place in bench
+   //else place in first available
+}
+
+function getNextPick()
+{
+   var currentPick = parseInt( $("#pick").text().trim() );
+   var currentRound = parseInt( $("#round").text().trim() );
+   var totalPick = currentPick + ( settings.teams.count * (currentRound-1) );
+   if ( totalPick !== FINAL_PICK )
+   {
+       updatePickCount( totalPick + 1 );
+       updateOptimal();
+   }
+   else
+   {
+       $("#player").val( "None" );
+       $("#player").prop('disabled', true);
+   }
+}
+
+function updatePickCount( pick )
+{
+    var teamCount = settings.teams.count;
+    var pickIndex = pick - 1;
+    if ( pickIndex % teamCount === 0 )
+    {
+        var round = ( pickIndex / teamCount ) + 1;
+        $("#round").text( "" + round );
+    }
+    $("#pick").text( "" + ( pickIndex % teamCount + 1) );
+
+    var teamIndex = pickIndex % teamCount;
+    var teamName = ( teamIndex + 1 == settings.teams.userIndex ) ? "You" : settings.teams.teamNames[ teamIndex ];
+    $("#team").text( teamName );
+    activeTeam = teamIndex;
+}
+
+
+/********************AUCTION********************/
+
 
 function initializeAuction()
 {
-   updateUserAssets( settings.general.leagueCap );
-   //updateUserAssets( <?php echo $settings['general']['leagueCap']; ?> );
-   //todo - under construction
+    updateUserAssets( settings.general.leagueCap );
+    //updateUserAssets( <?php echo $settings['general']['leagueCap']; ?> );
+    //todo - under construction
 }
 
 /*function payMoney( cost )
@@ -133,84 +177,40 @@ function updateUserAssets( money )
     $("#money").text( "" + money );
 }
 
-//***STANDARD***//
 
-function initializeStandard()
+/********************OPTIMIZE********************/
+
+
+function updateOptimal()
 {
-   updatePickCount( 0 );
-   getNextPick();
+    var player = getOptimalPlayer( players );
+
+    $("#player").val( player );
+   	$("#player").focus();
+    $("#optimalPlayer").text( player );
 }
 
-function submitPlayerPick()
+function getOptimalPlayer() //todo - this needs to be AJAX call done server-side
 {
-   var player = $("#player").val().trim;
-   if ( isValidPlayerPick( player ) )
-   {
-       insertPlayer( player );
-       getNextPick();
-   }
-   else
-   {
-       alert( "You cannot choose this player." );
-   }
-}
-
-function insertPlayer( player )
-{
-   //todo - get player position
-   //place player in that cell
-   //else place in bench
-   //else place in first available
-}
-
-function getNextPick()
-{
-   var currentPick = parseInt( $("#pick").text().trim() );
-   if ( currentPick !== FINAL_PICK )
-   {
-       incrementPickCount();
-
-       updateInfo();
-       $( "#optimalPlayer" ).text( optimalInfo.optimalPlayer );
-   }
-   else
-   {
-       $("#player").prop('disabled', true);
-   }
-}
-
-function incrementPickCount()
-{
-   var pick = parseInt( $("#pick").text().trim() ) + 1;
-   updatePickCount( pick );
-}
-
-function updatePickCount( pick )
-{
-   if ( pick % settings.teams.length === 0 )
-   {
-       var round = pick / settings.teams.length + 1;
-       $("#round").text( "" + round );
-   }
-   $("#pick").text( "" + pick );
-
-   var teamIndex = pick % settings.teams.length;
-   $("#team").text( "" + settings.teams[ teamIndex ] );
-   activeTeam = teamIndex;
+    return ( players ) ? players[Math.floor(Math.random()*players.length)] : null;
 }
 
 function fillOptimalPlayer()
 {
-   $("#player").val( $("#optimalPlayer").text().trim() );
+    $("#player").val( $("#optimalPlayer").text().trim() );
+}
+
+function getAvailablePlayers()
+{
+	return players;
+}
+
+function isValidPlayerPick()
+{
+    return true;
 }
 
 function displayInfo()
 {
-   //
-}
-
-function updateInfo()
-{
-   optimalInfo.optimalPlayer = getOptimalPlayer( players );
-   //todo
+    showMessage( "Player Info", "Under construction..." );
 }

@@ -13,4 +13,4 @@ LEFT JOIN settingsScoring ss ON m.s_id = ss.s_id
    LEFT JOIN scoringDefense scd ON m.s_id = scd.s_id
 LEFT JOIN settingsTeams st ON m.s_id = st.s_id
    LEFT JOIN teamNames tn ON m.s_id = tn.s_id
-WHERE m.m_id = '5181AB5C15654E2158620271C4535095';
+WHERE m.m_id = '23D2C9A77690077635541227B5E1C2A6';

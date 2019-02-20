@@ -167,6 +167,7 @@ function finishSetup()
             },
             function ( response ) {
                 window.location.href = "https://football.religionandstory.com/draft.php?memberId=" + JSON.parse( response );
+                //todo - Send email with link to draft page and member ID
             }
         );
     }
@@ -174,7 +175,7 @@ function finishSetup()
 
 function isValid()
 {
-    return true;
+    return true; //todo - String needs to not allow comma so that that it can be put into array
 }
 
 function getSettings()

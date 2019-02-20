@@ -16,6 +16,10 @@ if ( isset( $_POST['action'] ) && function_exists( $_POST['action'] ) )
 	{
 		$result = $action( $_POST['memberId'] );
 	}
+	else
+	{
+		$result = $action();
+	}
 	
 	echo json_encode( $result );
 }
