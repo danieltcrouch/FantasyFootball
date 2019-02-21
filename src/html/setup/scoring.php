@@ -3,7 +3,7 @@
 
 <?php
 include_once( 'php/html-constructor.php' );
-constructInputs( "scoring" );
+constructInputSections( "scoring" );
 ?>
 
 	<div style="margin-top: 1em">

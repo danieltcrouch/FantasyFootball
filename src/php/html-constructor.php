@@ -1,23 +1,33 @@
 <?php
 include_once( "utility.php" );
 
-function constructInputSections( $fileName )
+function constructInputSections( $fileName, $sectionMax = 2 )
 {
-    echo "<div>";
+    $colSize = intdiv( 10, $sectionMax );
+    echo "<div class='col-10'>\n";
+    echo "<div class='col-$colSize' style='margin-bottom: 2em'>\n";
 
+    $sectionCount = 0;
     $isNewTable = true;
     foreach ( file("resources/$fileName.txt") as $index => $line )
     {
-        if ( empty( $line ) && $index !== 0 )
+        if ( empty( trim( $line ) ) && $index !== 0 )
         {
             echo "</table>";
-            echo "</div>\n\n";
-            echo "<div>";
+            echo "</div>\n\n\n";
+            if ( $sectionCount + 1 === $sectionMax )
+            {
+                echo "</div>\n\n\n";
+                echo "<div class='col-10'>\n";
+                $sectionCount = -1;
+            }
+            echo "<div class='col-$colSize' style='margin-bottom: 2em'>\n";
             $isNewTable = true;
+            $sectionCount++;
         }
         else
         {
-            $isNewTable = constructInputs( $isNewTable, $line );
+            $isNewTable = constructInputs( $isNewTable, $line, 20 );
         }
     }
 
@@ -25,6 +35,7 @@ function constructInputSections( $fileName )
     {
         echo "</table></div>\n\n";
     }
+    echo "</div>";
 }
 
 function constructInputSection( $fileName )
@@ -41,35 +52,36 @@ function constructInputSection( $fileName )
     }
 }
 
-function constructInputs( $isNewTable, $line )
+function constructInputs( $isNewTable, $line, $minWidth = null )
 {
-    $line = explode( "|", $line );
-    if ( is_array( $line ) && count( $line ) > 1 )
+    $line = trim( $line );
+    $lineArray = explode( "|", $line );
+    if ( is_array( $lineArray ) && count( $lineArray ) > 1 )
     {
         if ( $isNewTable )
         {
+            $width = $minWidth ?? 10;
             echo "<table style=\"text-align: right; vertical-align: center; width: 100%\">
-                  <tr><td width=\"10%\"></td><td></td></tr>\n";
+                  <tr><td width=\"$width%\"></td><td></td></tr>\n";
             $isNewTable = false;
         }
 
-        array_walk( $line, function( &$item ) { $item = trim( $item ); } );
-        if ( $line[2] === "number" )
+        array_walk( $lineArray, function( &$item ) { $item = trim( $item ); } );
+        if ( $lineArray[2] === "number" )
         {
-            echo "<tr><td><label for=\"$line[0]\" class=\"label\">$line[1]: </label></td><td><input  id=\"$line[0]\" type=\"$line[2]\" class=\"input\" style=\"margin: 0\" /></td></tr>\n";
+            echo "<tr><td><label for=\"$lineArray[0]\" class=\"label\">$lineArray[1]: </label></td><td><input  id=\"$lineArray[0]\" type=\"$lineArray[2]\" class=\"input\" style=\"margin: 0\" /></td></tr>\n";
         }
-        elseif ( $line[2] === "text" )
+        elseif ( $lineArray[2] === "text" )
         {
-            echo "<tr><td><label for=\"$line[0]\" class=\"label\">$line[1]: </label></td><td><input  id=\"$line[0]\" type=\"$line[2]\" class=\"input\" style=\"margin: 0\" placeholder=\"$line[3]\" /></td></tr>\n";
+            echo "<tr><td><label for=\"$lineArray[0]\" class=\"label\">$lineArray[1]: </label></td><td><input  id=\"$lineArray[0]\" type=\"$lineArray[2]\" class=\"input\" style=\"margin: 0\" placeholder=\"$lineArray[3]\" /></td></tr>\n";
         }
-        elseif ( $line[2] === "checkbox" )
+        elseif ( $lineArray[2] === "checkbox" )
         {
-            echo "<tr><td colspan=\"2\" style=\"text-align: left\"><input  id=\"$line[0]\" type=\"$line[2]\" style=\"margin: 0 .5em\" /><label for=\"$line[0]\">$line[1]</label></td></tr>\n";
+            echo "<tr><td colspan=\"2\" style=\"text-align: left\"><input  id=\"$lineArray[0]\" type=\"$lineArray[2]\" style=\"margin: 0 .5em\" /><label for=\"$lineArray[0]\">$lineArray[1]</label></td></tr>\n";
         }
     }
     else
     {
-        $line = trim( implode( $line ) ) . "";
         if ( $line === "HR" )
         {
             echo "</table><hr/>\n\n";
@@ -77,7 +89,7 @@ function constructInputs( $isNewTable, $line )
         }
         elseif ( $line )
         {
-            echo "<span class=\"label\">$line</span>";
+            echo "<span class=\"label\">$line</span>\n";
         }
     }
 

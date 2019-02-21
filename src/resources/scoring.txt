@@ -3,7 +3,7 @@ passAttempts|Pass Attempts|number
 passComp|Pass Completions|number
 passIncomp|Pass Incompletions|number
 HR
-passYds|Passing Yds (Pts/Yds)|text|1/25
+passYds|Passing Yds (Pts/Yds Decimal)|number
 passTds|Pass TDs|number
 passTd40|40 Yd Pass TD|number
 HR
@@ -16,7 +16,7 @@ passBonus400|400 Yd Bonus|number
 Rushing
 rushDsp|Different Scoring by Position|checkbox
 HR
-rushYds|Rushing Yds (Pts/Yds)|text|1/10
+rushYds|Rushing Yds (Pts/Yds Decimal)|number
 rushAttempts|Rushing Attempts|number
 rushTds|Rushing TDs|number
 rushTd40|40 Yd Rush TD|number
@@ -32,7 +32,7 @@ rushBonus300|300 Yd Bonus|number
 Receiving
 receiveDsp|Different Scoring by Position|checkbox
 HR
-receiveYds|Receiving Yds (Pts/Yds)|text|1/10
+receiveYds|Receiving Yds (Pts/Yds Decimal)|number
 receiveComp|Receptions|number
 receiveTds|Receiving TDs|number
 receiveTd40|40 Yd Receiving TD|number
@@ -60,7 +60,7 @@ kickFgMiss|Missed Field Goals|number
 Returns
 returnDsp|Different Scoring by Position|checkbox
 HR
-returnYds|Return Yds (Pts/Yds)|text|1/10
+returnYds|Return Yds (Pts/Yds Decimal)|number
 returnTds|Return TDs|number
 
 IDP Scoring
@@ -89,4 +89,4 @@ defSafety|Safety|number
 HR
 defBlock|Blocked Kicks|number
 HR
-defYds|Return Yds (Pts/Yds)|text|1/10
+defYds|Return Yds (Pts/Yds Decimal)|number

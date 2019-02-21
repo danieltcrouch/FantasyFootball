@@ -138,8 +138,8 @@ function autoFill( settings )
     $( "#vor" ).val( settings.scoring.vor );
 
     //TEAMS
-    $( "#teamCount>option:eq(" + settings.teams.count + ")" ).attr( "selected", true );
-    $( "#userIndex>option:eq(" + settings.teams.userIndex + ")" ).attr( "selected", true );
+    $( "#teamCount>option[value='" + settings.teams.count + "']" ).attr( "selected", true );
+    $( "#userIndex>option[value='" + settings.teams.userIndex + "']" ).attr( "selected", true );
     setTeamNames( settings.teams.teamNames );
 }
 

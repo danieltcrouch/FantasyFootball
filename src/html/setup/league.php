@@ -3,7 +3,7 @@
 
 <?php
 include_once( 'php/html-constructor.php' );
-constructInputs( "league" );
+constructInputSection( "league" );
 ?>
 
 </div>
