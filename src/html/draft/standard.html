@@ -1,16 +1,22 @@
 <div id="standardDisplay" class="center">
-    <div>
+    <div style="margin-bottom: 0.5em">
         <label for="team" class="label">Active Team: </label><span id="team">You</span>
     </div>
-    <button class="button" style="width: 8em; margin-bottom: 1em" onclick="fillOptimalPlayer()">Optimize</button><br/>
-
-    <div style="margin-top: 1em; margin-bottom: 0.5em">
-        <label for="optimalPlayer" class="label">Optimal Player: </label><span id="optimalPlayer">--</span>
+    <div style="margin-bottom: 1.5em">
+        <button class="button" style="width: 8em" onclick="fillOptimalPlayer()">Optimize</button>
     </div>
 
+    <div style="margin-bottom: 0.5em">
+        <label for="optimalPlayer" class="label">Optimal Player: </label><span id="optimalPlayer">--</span>
+    </div>
     <div>
         <input id="player" type="text" class="input" placeholder="Player Name"/>
     </div>
-    <button class="button" style="width: 8em; margin-top: 1em" onclick="submitPlayerPick()">Submit</button>
-    <button class="button" style="width: 8em; margin-top: 1em" onclick="displayInfo()">Player Info</button><br/>
+
+    <div>
+        <button class="button" style="width: 8em; margin-top: 1em" onclick="submitPlayerPick()">Submit</button>
+    </div>
+    <div>
+        <button class="button" style="width: 8em; margin-top: 0.5em" onclick="displayInfo()">Player Info</button><br/>
+    </div>
 </div>

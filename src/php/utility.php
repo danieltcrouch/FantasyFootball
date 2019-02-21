@@ -92,9 +92,9 @@ function convertToSettings( $flatSettings )
 				'rushTd40'		=> $flatSettings['scoring_rushing_rushTd40'],
 				'rushConv'		=> $flatSettings['scoring_rushing_rushConv'],
 				'rushSacks'		=> $flatSettings['scoring_rushing_rushSacks'],
-				'rushBonus300'	=> $flatSettings['scoring_rushing_rushBonus300'],
-				'rushBonus350'	=> $flatSettings['scoring_rushing_rushBonus350'],
-				'rushBonus400'	=> $flatSettings['scoring_rushing_rushBonus400']
+				'rushBonus100'	=> $flatSettings['scoring_rushing_rushBonus100'],
+				'rushBonus200'	=> $flatSettings['scoring_rushing_rushBonus200'],
+				'rushBonus300'	=> $flatSettings['scoring_rushing_rushBonus300']
 			],
 			'receiving'	=> [
 				'receiveDsp'		=> $flatSettings['scoring_receive_receiveDsp'],
@@ -102,9 +102,9 @@ function convertToSettings( $flatSettings )
 				'receiveComp'		=> $flatSettings['scoring_receive_receiveComp'],
 				'receiveTds'		=> $flatSettings['scoring_receive_receiveTds'],
 				'receiveTd40'		=> $flatSettings['scoring_receive_receiveTd40'],
-				'receiveBonus300'	=> $flatSettings['scoring_receive_receiveBonus300'],
-				'receiveBonus350'	=> $flatSettings['scoring_receive_receiveBonus350'],
-				'receiveBonus400'	=> $flatSettings['scoring_receive_receiveBonus400']
+				'receiveBonus100'	=> $flatSettings['scoring_receive_receiveBonus100'],
+				'receiveBonus200'	=> $flatSettings['scoring_receive_receiveBonus200'],
+				'receiveBonus300'	=> $flatSettings['scoring_receive_receiveBonus300']
 			],
 			'fumbles'	=> [
 				'fumbleDsp'	=> $flatSettings['scoring_fumbles_fumbleDsp'],

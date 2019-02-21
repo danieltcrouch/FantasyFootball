@@ -91,7 +91,7 @@ function initializeStandard()
 
 function submitPlayerPick()
 {
-   var player = $("#player").val().trim;
+   var player = $("#player").val().trim();
    if ( isValidPlayerPick( player ) )
    {
        insertPlayer( player );

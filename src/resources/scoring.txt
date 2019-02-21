@@ -9,9 +9,10 @@ passTd40|40 Yd Pass TD|number
 HR
 passIntercept|Interceptions|number
 HR
-passBonus300|300 Yd Pass Bonus|number
-passBonus350|350 Yd Pass Bonus|number
-passBonus400|400 Yd Pass Bonus|number
+passBonus300|300 Yd Bonus|number
+passBonus350|350 Yd Bonus|number
+passBonus400|400 Yd Bonus|number
+
 Rushing
 rushDsp|Different Scoring by Position|checkbox
 HR
@@ -24,9 +25,10 @@ rushConv|2Pt Conversions|number
 HR
 rushSacks|Sacks|number
 HR
-rushBonus300|300 Yd Pass Bonus|number
-rushBonus350|350 Yd Pass Bonus|number
-rushBonus400|400 Yd Pass Bonus|number
+rushBonus100|100 Yd Bonus|number
+rushBonus200|200 Yd Bonus|number
+rushBonus300|300 Yd Bonus|number
+
 Receiving
 receiveDsp|Different Scoring by Position|checkbox
 HR
@@ -35,13 +37,15 @@ receiveComp|Receptions|number
 receiveTds|Receiving TDs|number
 receiveTd40|40 Yd Receiving TD|number
 HR
-receiveBonus300|300 Yd Receiving Bonus|number
-receiveBonus350|350 Yd Receiving Bonus|number
-receiveBonus400|400 Yd Receiving Bonus|number
+receiveBonus100|100 Yd Bonus|number
+receiveBonus200|200 Yd Bonus|number
+receiveBonus300|300 Yd Bonus|number
+
 Fumbles
 fumbleDsp|Different Scoring by Position|checkbox
 HR
 fumbles|Fumbles Lost|number
+
 Kicking
 kickEx|Extra Pts|number
 HR
@@ -52,11 +56,13 @@ kickFg49|Field Goals 40-49 Yds|number
 kickFg50|Field Goals 50+ Yds|number
 HR
 kickFgMiss|Missed Field Goals|number
+
 Returns
 returnDsp|Different Scoring by Position|checkbox
 HR
 returnYds|Return Yds (Pts/Yds)|text|1/10
 returnTds|Return TDs|number
+
 IDP Scoring
 idpDsp|Different Scoring by Position|checkbox
 HR
@@ -72,6 +78,7 @@ idpDeflect|Pass Deflection|number
 HR
 idpTds|TDs|number
 idpSafety|Safety|number
+
 Team Defense
 defSack|Sacks|number
 defRecovered|Recovered Fumble|number

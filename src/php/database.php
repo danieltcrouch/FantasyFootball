@@ -21,10 +21,10 @@ function storeDraftSettings( $settings )
 	
 	$insertPassing	= "INSERT INTO scoringPassing	(s_id, scp_passAttempts, scp_passComp, scp_passIncomp, scp_passYds, scp_passTds, scp_passTd40, scp_passIntercept, scp_passBonus300, scp_passBonus350, scp_passBonus400)
 											 VALUES ('" . $settingsId . "', " . $settings->scoring->passAttempts . ", " . $settings->scoring->passComp . ", " . $settings->scoring->passIncomp . ", '" . $settings->scoring->passYds . "', " . $settings->scoring->passTds . ", " . $settings->scoring->passTd40 . ", " . $settings->scoring->passIntercept . ", " . $settings->scoring->passBonus300 . ", " . $settings->scoring->passBonus350 . ", " . $settings->scoring->passBonus400 . ")";
-	$insertRushing	= "INSERT INTO scoringRushing	(s_id, scru_rushDsp, scru_rushYds, scru_rushAttempts, scru_rushTds, scru_rushTd40, scru_rushConv, scru_rushSacks, scru_rushBonus300, scru_rushBonus350, scru_rushBonus400)
-											 VALUES ('" . $settingsId . "', " . ($settings->scoring->rushDsp?1:0) . ", '" . $settings->scoring->rushYds . "', " . $settings->scoring->rushAttempts . ", " . $settings->scoring->rushTds . ", " . $settings->scoring->rushTd40 . ", " . $settings->scoring->rushConv . ", " . $settings->scoring->rushSacks . ", " . $settings->scoring->rushBonus300 . ", " . $settings->scoring->rushBonus350 . ", " . $settings->scoring->rushBonus400 . ")";
-	$insertReceiving= "INSERT INTO scoringReceiving	(s_id, scrc_receiveDsp, scrc_receiveYds, scrc_receiveComp, scrc_receiveTds, scrc_receiveTd40, scrc_receiveBonus300, scrc_receiveBonus350, scrc_receiveBonus400)
-											 VALUES ('" . $settingsId . "', " . ($settings->scoring->receiveDsp?1:0) . ", '" . $settings->scoring->receiveYds . "', " . $settings->scoring->receiveComp . ", " . $settings->scoring->receiveTds . ", " . $settings->scoring->receiveTd40 . ", " . $settings->scoring->receiveBonus300 . ", " . $settings->scoring->receiveBonus350 . ", " . $settings->scoring->receiveBonus400 . ")";
+	$insertRushing	= "INSERT INTO scoringRushing	(s_id, scru_rushDsp, scru_rushYds, scru_rushAttempts, scru_rushTds, scru_rushTd40, scru_rushConv, scru_rushSacks, scru_rushBonus100, scru_rushBonus200, scru_rushBonus300)
+											 VALUES ('" . $settingsId . "', " . ($settings->scoring->rushDsp?1:0) . ", '" . $settings->scoring->rushYds . "', " . $settings->scoring->rushAttempts . ", " . $settings->scoring->rushTds . ", " . $settings->scoring->rushTd40 . ", " . $settings->scoring->rushConv . ", " . $settings->scoring->rushSacks . ", " . $settings->scoring->rushBonus100 . ", " . $settings->scoring->rushBonus200 . ", " . $settings->scoring->rushBonus300 . ")";
+	$insertReceiving= "INSERT INTO scoringReceiving	(s_id, scrc_receiveDsp, scrc_receiveYds, scrc_receiveComp, scrc_receiveTds, scrc_receiveTd40, scrc_receiveBonus100, scrc_receiveBonus200, scrc_receiveBonus300)
+											 VALUES ('" . $settingsId . "', " . ($settings->scoring->receiveDsp?1:0) . ", '" . $settings->scoring->receiveYds . "', " . $settings->scoring->receiveComp . ", " . $settings->scoring->receiveTds . ", " . $settings->scoring->receiveTd40 . ", " . $settings->scoring->receiveBonus100 . ", " . $settings->scoring->receiveBonus200 . ", " . $settings->scoring->receiveBonus300 . ")";
 	$insertFumbles	= "INSERT INTO scoringFumbles	(s_id, scf_fumbleDsp, scf_fumbles)
 											 VALUES ('" . $settingsId . "', " . ($settings->scoring->fumbleDsp?1:0) . ", " . $settings->scoring->fumbles . ")";
 	$insertKicking	= "INSERT INTO scoringKicking	(s_id, sck_kickEx, sck_kickFg19, sck_kickFg29, sck_kickFg39, sck_kickFg49, sck_kickFg50, sck_kickFgMiss)
@@ -105,17 +105,17 @@ function getDraftSettings( $memberId )
 					scru.scru_rushTd40	    	AS scoring_rushing_rushTd40,
 					scru.scru_rushConv	    	AS scoring_rushing_rushConv,
 					scru.scru_rushSacks			AS scoring_rushing_rushSacks,
+					scru.scru_rushBonus100		AS scoring_rushing_rushBonus100,
+					scru.scru_rushBonus200		AS scoring_rushing_rushBonus200,
 					scru.scru_rushBonus300		AS scoring_rushing_rushBonus300,
-					scru.scru_rushBonus350		AS scoring_rushing_rushBonus350,
-					scru.scru_rushBonus400		AS scoring_rushing_rushBonus400,
 					scrc.scrc_receiveDsp		AS scoring_receive_receiveDsp,
 					scrc.scrc_receiveYds		AS scoring_receive_receiveYds,
 					scrc.scrc_receiveComp		AS scoring_receive_receiveComp,
 					scrc.scrc_receiveTds		AS scoring_receive_receiveTds,
 					scrc.scrc_receiveTd40		AS scoring_receive_receiveTd40,
+					scrc.scrc_receiveBonus100	AS scoring_receive_receiveBonus100,
+					scrc.scrc_receiveBonus200	AS scoring_receive_receiveBonus200,
 					scrc.scrc_receiveBonus300	AS scoring_receive_receiveBonus300,
-					scrc.scrc_receiveBonus350	AS scoring_receive_receiveBonus350,
-					scrc.scrc_receiveBonus400	AS scoring_receive_receiveBonus400,
 					scf.scf_fumbleDsp			AS scoring_fumbles_fumbleDsp,
 					scf.scf_fumbles				AS scoring_fumbles_fumbles,
 					sck.sck_kickEx				AS scoring_kicking_kickEx,

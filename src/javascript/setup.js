@@ -88,18 +88,18 @@ function autoFill( settings )
     $( "#rushTd40" ).val(       settings.scoring.rushing.rushTd40 );
     $( "#rushConv" ).val(       settings.scoring.rushing.rushConv );
     $( "#rushSacks" ).val(      settings.scoring.rushing.rushSacks );
+    $( "#rushBonus100" ).val(   settings.scoring.rushing.rushBonus100 );
+    $( "#rushBonus200" ).val(   settings.scoring.rushing.rushBonus200 );
     $( "#rushBonus300" ).val(   settings.scoring.rushing.rushBonus300 );
-    $( "#rushBonus350" ).val(   settings.scoring.rushing.rushBonus350 );
-    $( "#rushBonus400" ).val(   settings.scoring.rushing.rushBonus400 );
 
     $( "#receiveDsp" ).prop( "checked", settings.scoring.receiving.receiveDsp );
     $( "#receiveYds" ).val(      settings.scoring.receiving.receiveYds );
     $( "#receiveComp" ).val(     settings.scoring.receiving.receiveComp );
     $( "#receiveTds" ).val(      settings.scoring.receiving.receiveTds );
     $( "#receiveTd40" ).val(     settings.scoring.receiving.receiveTd40 );
+    $( "#receiveBonus100" ).val( settings.scoring.receiving.receiveBonus100 );
+    $( "#receiveBonus200" ).val( settings.scoring.receiving.receiveBonus200 );
     $( "#receiveBonus300" ).val( settings.scoring.receiving.receiveBonus300 );
-    $( "#receiveBonus350" ).val( settings.scoring.receiving.receiveBonus350 );
-    $( "#receiveBonus400" ).val( settings.scoring.receiving.receiveBonus400 );
 
     $( "#fumbleDsp" ).prop( "checked", settings.scoring.fumbles.fumbleDsp );
     $( "#fumbles" ).val( settings.scoring.fumbles.fumbles );
