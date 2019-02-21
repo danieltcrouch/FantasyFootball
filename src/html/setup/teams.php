@@ -31,6 +31,7 @@ $(document).ready(function () {
 
 function updateTeams()
 {
+    //todo - causes to lose already entered order
 	var indexSelect = document.getElementById("userIndex");
     indexSelect.options.length = 0;
     for ( i = 0; i < getTeamCount(); i++ )
@@ -42,7 +43,7 @@ function updateTeams()
 
     //todo - causes to lose already entered names
 	var nameContainer = document.getElementById("teamNames");
-	while (nameContainer.hasChildNodes())
+	while ( nameContainer.hasChildNodes() )
 	{
         nameContainer.removeChild( nameContainer.lastChild );
 	}

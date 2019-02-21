@@ -163,7 +163,7 @@ function finishSetup()
             "php/controller.php",
             {
                 action: 	"storeDraftSettings",
-                settings:	JSON.stringify( getSettings() )
+                settings:	JSON.stringify( getSettings() ) //todo - override current settings
             },
             function ( response ) {
                 window.location.href = "https://football.religionandstory.com/draft.php?memberId=" + JSON.parse( response );
@@ -175,7 +175,7 @@ function finishSetup()
 
 function isValid()
 {
-    return true; //todo - String needs to not allow comma so that that it can be put into array
+    return true;
 }
 
 function getSettings()
@@ -278,4 +278,14 @@ function getTeamNames()
 function getUserIndex()
 {
     return parseInt( $( "#userIndex option:selected" ).val() );
+}
+
+
+/********************OTHER********************/
+
+
+function displayNext()
+{
+    displayNextTab( "setup" );
+    scrollToId( "general" );
 }

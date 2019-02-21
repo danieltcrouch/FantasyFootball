@@ -45,7 +45,7 @@
 
         <div class="col-10 center">
             <!-- todo - make next go to top of page -->
-            <button id="next" class="button" style="width: 6em" onclick="displayNextTab( 'setup' )">Next</button>
+            <button id="next" class="button" style="width: 6em" onclick="displayNext()">Next</button>
             <button id="finish" class="button" style="width: 6em; display: none" onclick="finishSetup()">Finish</button>
         </div>
     </div>
