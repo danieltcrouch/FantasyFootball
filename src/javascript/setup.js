@@ -1,17 +1,27 @@
+var memberId;
+var isCopy;
+
+
 /********************AUTOFILL********************/
 
 
-function preFill( preFillType )
+function autoFill()
 {
-    $.post(
-        "php/controller.php",
-        {
-            action: 	 "getPreFillSettings",
-            preFillType: preFillType
-        },
-        function ( response ) {
-            response = JSON.parse( response );
-            autoFill( response );
+    showBinaryChoice(
+        "Auto-Fill",
+        "What type of settings would you like to use?", "PPR", "Non-PPR",
+        function( answer ) {
+            $.post(
+                "php/controller.php",
+                {
+                    action: 	"getDraftSettings",
+                    memberId:	answer ? "_ppr_" : "_nonppr_"
+                },
+                function ( response ) {
+                    response = JSON.parse( response );
+                    preFill( response, false );
+                }
+            );
         }
     );
 }
@@ -20,7 +30,7 @@ function preFill( preFillType )
 /********************LOAD********************/
 
 
-function loadSetup( memberId )
+function loadSetup()
 {
     if ( memberId )
     {
@@ -32,7 +42,7 @@ function loadSetup( memberId )
             },
             function ( response ) {
                 response = JSON.parse( response );
-                autoFill( response );
+                preFill( response );
             }
         );
     }
@@ -42,15 +52,18 @@ function loadSetup( memberId )
     }
 }
 
-function autoFill( settings )
+function preFill( settings, usePersonalSettings = true )
 {
     //GENERAL
-    $( '#' + settings.general.draftType ).click();
-    //Season
-    //Position
-    //ADP
-    $( "#leagueCap" ).val( settings.general.leagueCap );
-    $( "#aav>option:eq(" + settings.general.aav + ")" ).attr( "selected", true );
+    if ( usePersonalSettings )
+    {
+        $( '#' + settings.general.draftType ).click();
+        //Season
+        //Position
+        //ADP
+        $( "#leagueCap" ).val( settings.general.leagueCap );
+        $( "#aav>option[value='" + settings.general.aav + "']" ).attr( "selected", true );
+    }
 
     //LEAGUE
     $( "#qb" ).val(       settings.league.qb );
@@ -138,9 +151,12 @@ function autoFill( settings )
     $( "#vor" ).val( settings.scoring.vor );
 
     //TEAMS
-    $( "#teamCount>option[value='" + settings.teams.count + "']" ).attr( "selected", true );
-    $( "#userIndex>option[value='" + settings.teams.userIndex + "']" ).attr( "selected", true );
-    setTeamNames( settings.teams.teamNames );
+    if ( usePersonalSettings )
+    {
+        $( "#teamCount>option[value='" + settings.teams.count + "']" ).attr( "selected", true );
+        $( "#userIndex>option[value='" + settings.teams.userIndex + "']" ).attr( "selected", true );
+        setTeamNames( settings.teams.teamNames );
+    }
 }
 
 function setTeamNames( teamNames )
@@ -159,18 +175,37 @@ function finishSetup()
 {
     if ( isValid() )
     {
-        $.post(
-            "php/controller.php",
-            {
-                action: 	"storeDraftSettings",
-                settings:	JSON.stringify( getSettings() ) //todo - override current settings
-            },
-            function ( response ) {
-                window.location.href = "https://football.religionandstory.com/draft.php?memberId=" + JSON.parse( response );
-                //todo - Send email with link to draft page and member ID
-            }
-        );
+        var settings = JSON.stringify( getSettings() );
+        if ( memberId.length === 32 && !isCopy )
+        {
+            $.post(
+                "php/controller.php",
+                {
+                    action: 	"updateDraftSettings",
+                    memberId: 	memberId,
+                    settings:	settings
+                },
+                goToDraft
+            );
+        }
+        else
+        {
+            $.post(
+                "php/controller.php",
+                {
+                    action: 	"saveDraftSettings",
+                    settings:	settings
+                },
+                goToDraft
+            );
+        }
     }
+}
+
+function goToDraft( response )
+{
+    window.location.href = "https://football.religionandstory.com/draft.php?memberId=" + JSON.parse( response );
+    //todo - Send email with link to draft page and member ID
 }
 
 function isValid()

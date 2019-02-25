@@ -47,12 +47,17 @@
             <!-- todo - make next go to top of page -->
             <button id="next" class="button" style="width: 6em" onclick="displayNext()">Next</button>
             <button id="finish" class="button" style="width: 6em; display: none" onclick="finishSetup()">Finish</button>
+            <button id="next" class="button" style="width: 6em; margin-top: 1em" onclick="autoFill()">Next</button>
         </div>
     </div>
 
 </body>
 <script>
-    $(document).ready( function(){ loadSetup( "<?php echo $_GET['memberId']; ?>" ); } );
+    $(document).ready( function() {
+        memberId = "<?php echo $_GET['memberId']; ?>";
+        isCopy = <?php echo ((boolean)$_GET['copy']) ? "true" : "false"; ?>;
+        loadSetup();
+    } );
 
     setTabCallbackToDisplay( 'setup' );
 

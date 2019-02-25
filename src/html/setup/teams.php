@@ -13,10 +13,7 @@
 
 	<div>
 		<label for="userIndex" class="label">Your Order in the Draft: </label>
-		<select id="userIndex" class="select">
-			<option value="1">1</option>
-			<option value="2">2</option>
-		</select>
+		<select id="userIndex" class="select"></select>
 	</div>
 
 	<div id="teamNames">
@@ -25,38 +22,27 @@
 </div>
 
 <script>
+var MAX_TEAMS = 12;
 $(document).ready(function () {
+    createOptions();
 	updateTeams();
 });
 
-function updateTeams()
+function createOptions()
 {
-    //todo - causes to lose already entered order
-	var indexSelect = document.getElementById("userIndex");
-    indexSelect.options.length = 0;
-    for ( i = 0; i < getTeamCount(); i++ )
+    var options = document.getElementById("teamCount").options;
+    MAX_TEAMS = options[options.length - 1].value; //double-check
+
+    var indexSelect = document.getElementById("userIndex");
+    var nameContainer = document.getElementById("teamNames");
+    for ( var i = 0; i < MAX_TEAMS; i++ )
     {
         var option = document.createElement("option");
         option.text = i + 1 + "";
         indexSelect.add( option );
+
+        addTeam( nameContainer, i + 1 );
     }
-
-    //todo - causes to lose already entered names
-	var nameContainer = document.getElementById("teamNames");
-	while ( nameContainer.hasChildNodes() )
-	{
-        nameContainer.removeChild( nameContainer.lastChild );
-	}
-	
-    var span = document.createElement("span");
-    span.innerText = "Team Names";
-    span.classList.add( "label" );
-    nameContainer.appendChild(span);
-
-	for ( var i = 1; i <= getTeamCount(); i++ )
-	{
-		addTeam( nameContainer, i );
-	}
 }
 
 function addTeam( container, index )
@@ -69,5 +55,24 @@ function addTeam( container, index )
     input.placeholder = "Team " + index;
     input.classList.add( "input" );
     container.appendChild(input);
+}
+
+function updateTeams()
+{
+    var indexSelect = document.getElementById("userIndex");
+    var nameContainer = document.getElementById("teamNames");
+    for ( var i = 0; i < MAX_TEAMS; i++ )
+    {
+        if ( i < getTeamCount() )
+        {
+            $( indexSelect.options[i] ).show();
+            $( "t" + (i+1) ).show();
+        }
+        else
+        {
+            $( indexSelect.options[i] ).hide();
+            $( "t" + (i+1) ).hide();
+        }
+    }
 }
 </script>

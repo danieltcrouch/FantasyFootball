@@ -1,7 +1,7 @@
 <?php
 include_once( "utility.php" );
 
-function storeDraftSettings( $settings )
+function saveDraftSettings( $settings )
 {
 	$mysqli = getMySql();
 	
@@ -51,6 +51,63 @@ function storeDraftSettings( $settings )
     $query = $insertMember . "; " . $insertSGeneral . "; " . $insertSLeague . "; " . $insertSScoring . "; " . $insertSTeams . "; " .
 			 $insertPassing . "; " . $insertRushing . "; " . $insertReceiving . "; " . $insertFumbles . "; " . $insertKicking . "; " . $insertReturns . "; " . $insertIdp . "; " . $insertDefense . "; " .
 			 $insertTeamNames;
+
+	$mysqli->multi_query($query);
+	$mysqli->close();
+
+    $_SESSION['memberId'] = $memberId;
+	return $memberId;
+}
+
+function updateDraftSettings( $memberId, $settings )
+{
+	$mysqli = getMySql();
+
+    $result = $mysqli->query( "SELECT s_id FROM members WHERE m_id = '" . $memberId . "'" );
+    $settingsId	= $result->fetch_assoc()['s_id'];
+
+	$updateSGeneral	= "UPDATE settingsGeneral SET sg_draftType = '" . $settings->general->draftType . "', sg_season = '" . $settings->general->season . "', sg_positions = '" . $settings->general->positions . "', sg_adp = '" . $settings->general->adp . "', sg_leagueCap = " . $settings->general->leagueCap . ", sg_aav = '" . $settings->general->aav . "'
+	                                          WHERE s_id = '" . $settingsId . "'";
+	$updateSLeague	= "UPDATE settingsLeague SET sl_qb = " . $settings->league->qb . ", sl_rb = " . $settings->league->rb . ", sl_wr = " . $settings->league->wr . ", sl_te = " . $settings->league->te . ", sl_k = " . $settings->league->k . ", sl_dst = " . $settings->league->dst . ", sl_dl = " . $settings->league->dl . ", sl_lb = " . $settings->league->lb . ", sl_db = " . $settings->league->db . ", sl_wrTe = " . $settings->league->wrTe . ", sl_wrRb = " . $settings->league->wrRb . ", sl_wrRbTe = " . $settings->league->wrRbTe . ", sl_qbWrRbTe = " . $settings->league->qbWrRbTe . ", sl_dlLbDb = " . $settings->league->dlLbDb . ", sl_bench = " . $settings->league->bench . "
+                                             WHERE s_id = '" . $settingsId . "'";
+	$updateSScoring	= "UPDATE settingsScoring SET ss_vor = '" . $settings->scoring->vor . "'
+                                             WHERE s_id = '" . $settingsId . "'";
+	$updateSTeams	= "UPDATE settingsTeams	SET st_count = " . $settings->teams->count . ", st_userIndex = " . $settings->teams->userIndex . "
+	                                          WHERE s_id = '" . $settingsId . "'";
+
+	$updatePassing	= "UPDATE scoringPassing SET scp_passAttempts = " . $settings->scoring->passAttempts . ", scp_passComp = " . $settings->scoring->passComp . ", scp_passIncomp = " . $settings->scoring->passIncomp . ", scp_passYds = " . $settings->scoring->passYds . ", scp_passTds = " . $settings->scoring->passTds . ", scp_passTd40 = " . $settings->scoring->passTd40 . ", scp_passIntercept = " . $settings->scoring->passIntercept . ", scp_passBonus300 = " . $settings->scoring->passBonus300 . ", scp_passBonus350 = " . $settings->scoring->passBonus350 . ", scp_passBonus400 = " . $settings->scoring->passBonus400 . "
+	                                          WHERE s_id = '" . $settingsId . "'";
+	$updateRushing	= "UPDATE scoringRushing SET scru_rushDsp = " . ($settings->scoring->rushDsp?1:0) . ", scru_rushYds = " . $settings->scoring->rushYds . ", scru_rushAttempts = " . $settings->scoring->rushAttempts . ", scru_rushTds = " . $settings->scoring->rushTds . ", scru_rushTd40 = " . $settings->scoring->rushTd40 . ", scru_rushConv = " . $settings->scoring->rushConv . ", scru_rushSacks = " . $settings->scoring->rushSacks . ", scru_rushBonus100 = " . $settings->scoring->rushBonus100 . ", scru_rushBonus200 = " . $settings->scoring->rushBonus200 . ", scru_rushBonus300 = " . $settings->scoring->rushBonus300 . "
+	                                          WHERE s_id = '" . $settingsId . "'";
+	$updateReceiving= "UPDATE scoringReceiving SET scrc_receiveDsp = " . ($settings->scoring->receiveDsp?1:0) . ", scrc_receiveYds = " . $settings->scoring->receiveYds . ", scrc_receiveComp = " . $settings->scoring->receiveComp . ", scrc_receiveTds = " . $settings->scoring->receiveTds . ", scrc_receiveTd40 = " . $settings->scoring->receiveTd40 . ", scrc_receiveBonus100 = " . $settings->scoring->receiveBonus100 . ", scrc_receiveBonus200 = " . $settings->scoring->receiveBonus200 . ", scrc_receiveBonus300 = " . $settings->scoring->receiveBonus300 . "
+	                                          WHERE s_id = '" . $settingsId . "'";
+	$updateFumbles	= "UPDATE scoringFumbles SET scf_fumbleDsp = " . ($settings->scoring->fumbleDsp?1:0) . ", scf_fumbles = " . $settings->scoring->fumbles . "
+	                                          WHERE s_id = '" . $settingsId . "'";
+	$updateKicking	= "UPDATE scoringKicking SET sck_kickEx = " . $settings->scoring->kickEx . ", sck_kickFg19 = " . $settings->scoring->kickFg19 . ", sck_kickFg29 = " . $settings->scoring->kickFg29 . ", sck_kickFg39 = " . $settings->scoring->kickFg39 . ", sck_kickFg49 = " . $settings->scoring->kickFg49 . ", sck_kickFg50 = " . $settings->scoring->kickFg50 . ", sck_kickFgMiss = " . $settings->scoring->kickFgMiss . "
+	                                          WHERE s_id = '" . $settingsId . "'";
+	$updateReturns	= "UPDATE scoringReturns SET scrt_returnDsp = " . ($settings->scoring->returnDsp?1:0) . ", scrt_returnYds = " . $settings->scoring->returnYds . ", scrt_returnTds = " . $settings->scoring->returnTds . "
+	                                          WHERE s_id = '" . $settingsId . "'";
+	$updateIdp		= "UPDATE scoringIdp SET sci_idpDsp = " . ($settings->scoring->idpDsp?1:0) . ", sci_idpTackleSolo = " . $settings->scoring->idpTackleSolo . ", sci_idpTackleAssist = " . $settings->scoring->idpTackleAssist . ", sci_idpSack = " . $settings->scoring->idpSack . ", sci_idpForced = " . $settings->scoring->idpForced . ", sci_idpRecovered = " . $settings->scoring->idpRecovered . ", sci_idpIntercept = " . $settings->scoring->idpIntercept . ", sci_idpDeflect = " . $settings->scoring->idpDeflect . ", sci_idpTds = " . $settings->scoring->idpTds . ", sci_idpSafety = " . $settings->scoring->idpSafety . "
+	                                          WHERE s_id = '" . $settingsId . "'";
+	$updateDefense	= "UPDATE scoringDefense SET scd_defSack = " . $settings->scoring->defSack . ", scd_defRecovered = " . $settings->scoring->defRecovered . ", scd_defIntercept = " . $settings->scoring->defIntercept . ", scd_defTds = " . $settings->scoring->defTds . ", scd_defSafety = " . $settings->scoring->defSafety . ", scd_defBlock = " . $settings->scoring->defBlock . ", scd_defYds = " . $settings->scoring->defYds . "
+	                                          WHERE s_id = '" . $settingsId . "'";
+
+	$updateTeamNames= "INSERT INTO teamNames (s_id, tn_teamIndex, tn_teamName)
+                                             VALUES ";
+	for ( $i = 0; $i < $settings->teams->count; $i++ )
+    {
+        if ($i != 0)
+        {
+            $updateTeamNames .= ", ";
+        }
+        $updateTeamNames .= "('" . $settingsId . "', " . $i . ", '" . $settings->teams->teamNames[$i] . "') ";
+    }
+    $updateTeamNames .= "ON DUPLICATE KEY UPDATE tn_teamName = VALUES(tn_teamName)";
+
+    //semi-colon on all but last query
+    $query = $updateSGeneral . "; " . $updateSLeague . "; " . $updateSScoring . "; " . $updateSTeams . "; " .
+			 $updatePassing . "; " . $updateRushing . "; " . $updateReceiving . "; " . $updateFumbles . "; " . $updateKicking . "; " . $updateReturns . "; " . $updateIdp . "; " . $updateDefense . "; " .
+			 $updateTeamNames;
 
 	$mysqli->multi_query($query);
 	$mysqli->close();

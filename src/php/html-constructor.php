@@ -13,12 +13,12 @@ function constructInputSections( $fileName )
         {
             echo "</table>";
             echo "</div>\n\n\n";
-            echo "<div style='margin: 1em .5em'>";
+            echo "<div style='flex-grow: 1; margin: 1em .5em'>";
             $isNewTable = true;
         }
         else
         {
-            $isNewTable = constructInputs( $isNewTable, $line, 20 );
+            $isNewTable = constructInputs( $isNewTable, $line );
         }
     }
 
