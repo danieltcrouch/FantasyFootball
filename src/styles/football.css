@@ -1,0 +1,19 @@
+.teamTable {
+   border:        2px solid black;
+   border-radius: 1em;
+   padding:       1em;
+
+   margin: 1em .5em;
+}
+
+.teamTable th {
+   width: 15em;
+}
+
+.teamTable td {
+   border-top:    1px solid black;
+   padding-top:   .3em;
+
+   text-align:    center;
+   color:         darkgrey;
+}

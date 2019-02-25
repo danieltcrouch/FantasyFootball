@@ -1,13 +1,11 @@
 <?php
 include_once( "utility.php" );
 
-function constructInputSections( $fileName, $sectionMax = 2 )
+function constructInputSections( $fileName )
 {
-    $colSize = intdiv( 10, $sectionMax );
-    echo "<div class='col-10'>\n";
-    echo "<div class='col-$colSize' style='margin-bottom: 2em'>\n";
+    echo "<div style='display: flex; flex-wrap: wrap; justify-content: center'>\n\n";
+    echo "<div style='flex-grow: 1; margin: 1em .5em'>";
 
-    $sectionCount = 0;
     $isNewTable = true;
     foreach ( file("resources/$fileName.txt") as $index => $line )
     {
@@ -15,15 +13,8 @@ function constructInputSections( $fileName, $sectionMax = 2 )
         {
             echo "</table>";
             echo "</div>\n\n\n";
-            if ( $sectionCount + 1 === $sectionMax )
-            {
-                echo "</div>\n\n\n";
-                echo "<div class='col-10'>\n";
-                $sectionCount = -1;
-            }
-            echo "<div class='col-$colSize' style='margin-bottom: 2em'>\n";
+            echo "<div style='margin: 1em .5em'>";
             $isNewTable = true;
-            $sectionCount++;
         }
         else
         {
@@ -52,7 +43,7 @@ function constructInputSection( $fileName )
     }
 }
 
-function constructInputs( $isNewTable, $line, $minWidth = null )
+function constructInputs( $isNewTable, $line )
 {
     $line = trim( $line );
     $lineArray = explode( "|", $line );
@@ -60,9 +51,8 @@ function constructInputs( $isNewTable, $line, $minWidth = null )
     {
         if ( $isNewTable )
         {
-            $width = $minWidth ?? 10;
             echo "<table style=\"text-align: right; vertical-align: center; width: 100%\">
-                  <tr><td width=\"$width%\"></td><td></td></tr>\n";
+                  <tr><td width=\"10%\"></td><td></td></tr>\n";
             $isNewTable = false;
         }
 
@@ -96,25 +86,25 @@ function constructInputs( $isNewTable, $line, $minWidth = null )
     return $isNewTable;
 }
 
-function generateTables( $teamCount, $leaguePositions, $teamNames )
+function generateTables( $tableSettings, $sectionMax = 3 )
 {
-    $positionTitles = array_keys( $leaguePositions );
+    $positionTitles = array_keys( $tableSettings['positions'] );
 
-    echo "\r\n";
-   	for ( $i = 1; $i <= $teamCount; $i++ )
+    echo "<div style='display: flex; flex-wrap: wrap; justify-content: center'>\n";
+   	for ( $teamIndex = 0; $teamIndex < $tableSettings['teamCount']; $teamIndex++ )
    	{
-   		echo "<table id='player_" . $i . "'>\r\n";
-   		echo "   <tr>\r\n";
-   		echo "      <th id='player_" . $i . "_header'>" . $teamNames[$i] . "</th>\r\n";
-   		echo "   </tr>\r\n";
+   		echo "<div><table id='player_$teamIndex' class='teamTable'>\n";
+   		echo "   <tr><th id='player_$teamIndex" . "_header'>" . $tableSettings['teamNames'][$teamIndex] . "</th></tr>\n";
 
-   		for ( $j = 1; $j <= getPlayerCountFromPositions( $leaguePositions ); $j++ )
-   		{
-   			echo "   <tr>\r\n";
-   			echo "      <td id='player_" . $i . "_cell" . $j . "'> " . $positionTitles[$j] . " </td>\r\n";
-   			echo "   </tr>\r\n";
-   		}
-   		echo "</table>\r\n<br/>";
+   		for ( $positionIndex = 0; $positionIndex < count( $positionTitles ); $positionIndex++ )
+        {
+            $positionCount = $tableSettings['positions'][$positionTitles[$positionIndex]];
+            for ( $positionCountIndex = 0; $positionCountIndex < $positionCount; $positionCountIndex++ )
+            {
+                echo "   <tr><td id='player_$teamIndex" . "_cell_$positionIndex-$positionCountIndex' class='empty'> " . strtoupper( $positionTitles[$positionIndex] ) . " </td></tr>\n";
+            }
+        }
+   		echo "</table></div>\n";
    	}
 }
 

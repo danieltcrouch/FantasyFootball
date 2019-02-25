@@ -8,6 +8,7 @@ validateMemberId( $_SESSION['memberId'] );
 <head>
     <?php includeHeadInfo(); ?>
     <script src="javascript/draft.js"></script>
+    <link rel="stylesheet" type="text/css" href="styles/football.css"/>
     <!-- AutoComplete -->
    	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
    	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -42,7 +43,8 @@ validateMemberId( $_SESSION['memberId'] );
 
         <?php
         include_once( "php/html-constructor.php" );
-        //todo - generateTables( $settings['teams']['count'], $settings['league'], $teamNames );
+        include_once( "php/database.php" );
+        generateTables( getTableSettings( $_SESSION['memberId'] ) );
         ?>
     </div>
 

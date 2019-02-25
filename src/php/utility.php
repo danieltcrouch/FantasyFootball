@@ -156,6 +156,34 @@ function convertToSettings( $flatSettings )
 	return $settings;
 }
 
+function convertToTableSettings( $flatSettings )
+{
+	$settings = [
+		'memberId'	=> $flatSettings['memberId'],
+		'positions'	=> [
+			'qb'		  => $flatSettings['league_qb'],
+			'rb'		  => $flatSettings['league_rb'],
+			'wr'		  => $flatSettings['league_wr'],
+			'te'		  => $flatSettings['league_te'],
+			'k'			  => $flatSettings['league_k'],
+			'dst'		  => $flatSettings['league_dst'],
+			'dl'		  => $flatSettings['league_dl'],
+			'lb'		  => $flatSettings['league_lb'],
+			'db'		  => $flatSettings['league_db'],
+			'wr-Te'		  => $flatSettings['league_wrTe'],
+			'wr-Rb'		  => $flatSettings['league_wrRb'],
+			'wr-Rb-Te'	  => $flatSettings['league_wrRbTe'],
+			'qb-Wr-Rb-Te' => $flatSettings['league_qbWrRbTe'],
+			'dl-Lb-Db'	  => $flatSettings['league_dlLbDb'],
+			'bench'		  => $flatSettings['league_bench']
+		],
+		'teamCount'	=> $flatSettings['teams_count'],
+		'teamNames'	=> getTeamNames( $flatSettings['teams_teamNames'] )
+	];
+
+	return $settings;
+}
+
 function getTeamNames( $teamNames )
 {
 	return explode( ",", $teamNames );
@@ -164,11 +192,6 @@ function getTeamNames( $teamNames )
 
 /********************OTHER********************/
 
-
-function getPlayerCountFromPositions( $positions )
-{
-	return 10; //todo - fix this
-}
 
 function getPlayers()
 {

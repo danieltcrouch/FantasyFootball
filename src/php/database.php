@@ -170,6 +170,42 @@ function getDraftSettings( $memberId )
     return convertToSettings( $result->fetch_assoc() );
 }
 
+function getTableSettings( $memberId )
+{
+	$mysqli = getMySql();
+	$result = $mysqli->query(
+"         SELECT
+                    m.m_id				AS memberId,
+                    sl.sl_qb			AS league_qb,
+                    sl.sl_rb			AS league_rb,
+                    sl.sl_wr			AS league_wr,
+                    sl.sl_te			AS league_te,
+                    sl.sl_k				AS league_k,
+                    sl.sl_dst			AS league_dst,
+                    sl.sl_dl			AS league_dl,
+                    sl.sl_lb			AS league_lb,
+                    sl.sl_db			AS league_db,
+                    sl.sl_wrTe			AS league_wrTe,
+                    sl.sl_wrRb			AS league_wrRb,
+                    sl.sl_wrRbTe		AS league_wrRbTe,
+                    sl.sl_qbWrRbTe		AS league_qbWrRbTe,
+                    sl.sl_dlLbDb		AS league_dlLbDb,
+                    sl.sl_bench			AS league_bench,
+                    st.st_count			AS teams_count,
+					st.st_count			AS teams_count,
+                    GROUP_CONCAT(tn.tn_teamName ORDER BY tn.tn_teamIndex ASC SEPARATOR ',') AS teams_teamNames
+                FROM members m
+                LEFT JOIN settingsLeague sl ON m.s_id = sl.s_id
+                LEFT JOIN settingsTeams st ON m.s_id = st.s_id
+                    LEFT JOIN teamNames tn ON m.s_id = tn.s_id
+				WHERE m.m_id = '" . $memberId . "'"
+				);
+	$mysqli->close();
+
+    $_SESSION['memberId'] = $memberId;
+    return convertToTableSettings( $result->fetch_assoc() );
+}
+
 function getMySql()
 {
     $mysqli = new mysqli( 'localhost', 'religiv3_admin', '1corinthians3:9', 'religiv3_football' );
