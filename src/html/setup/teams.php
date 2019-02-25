@@ -60,18 +60,18 @@ function addTeam( container, index )
 function updateTeams()
 {
     var indexSelect = document.getElementById("userIndex");
-    var nameContainer = document.getElementById("teamNames");
     for ( var i = 0; i < MAX_TEAMS; i++ )
     {
         if ( i < getTeamCount() )
         {
             $( indexSelect.options[i] ).show();
-            $( "t" + (i+1) ).show();
+            $( "#t" + (i+1) ).show();
         }
         else
         {
             $( indexSelect.options[i] ).hide();
-            $( "t" + (i+1) ).hide();
+            $( "#t" + (i+1) ).hide();
+            $( "#t" + (i+1) ).val( "" );
         }
     }
 }

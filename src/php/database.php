@@ -61,6 +61,11 @@ function saveDraftSettings( $settings )
 
 function updateDraftSettings( $memberId, $settings )
 {
+    if ( $memberId == "_ppr_" || $memberId == "_nonppr_" )
+    {
+        return false;
+    }
+
 	$mysqli = getMySql();
 
     $result = $mysqli->query( "SELECT s_id FROM members WHERE m_id = '" . $memberId . "'" );

@@ -44,10 +44,11 @@
        	<?php include("html/setup/teams.php"); ?>
 
         <div class="col-10 center">
-            <!-- todo - make next go to top of page -->
             <button id="next" class="button" style="width: 6em" onclick="displayNext()">Next</button>
             <button id="finish" class="button" style="width: 6em; display: none" onclick="finishSetup()">Finish</button>
-            <button id="next" class="button" style="width: 6em; margin-top: 1em" onclick="autoFill()">Next</button>
+        </div>
+        <div class="col-10 center">
+            <button id="next" class="button" style="width: 6em" onclick="autoFill()">Auto-Fill</button>
         </div>
     </div>
 
