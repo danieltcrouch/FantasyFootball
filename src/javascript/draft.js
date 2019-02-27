@@ -47,9 +47,9 @@ function loadPlayers()
     );
 }
 
-function setPlayerHandler()
+function setPlayerInputHandler()
 {
-    $("#player").autocomplete( {source: players} );
+    updatePlayerInputAutocomplete();
     $("#player").keyup( function(e){
         if(e.keyCode === 13)
         {
@@ -60,6 +60,12 @@ function setPlayerHandler()
             fillOptimalPlayer();
         }
     } );
+}
+
+function updatePlayerInputAutocomplete()
+{
+    var playerNames = players.map( player => player.name );
+    $("#player").autocomplete( {source: playerNames} );
 }
 
 function setDraftType( type )

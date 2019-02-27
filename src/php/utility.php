@@ -1,6 +1,8 @@
 <?php
 session_start();
 
+$_SESSION['memberId'] = $_GET['memberId'] ?? $_SESSION['memberId'];
+
 
 /********************SESSION********************/
 
@@ -20,24 +22,8 @@ function validateMemberId( $memberId )
 
 function getGUID()
 {
-	$result = null;
-	//todo - check if this function exists and just use it
-    if (function_exists("com_create_guid"))
-	{
-        $result = str_replace( "-", "", trim(com_create_guid(), "{}") );
-    }
-	else
-	{
-        mt_srand((double)microtime()*10000);
-        $charid = strtoupper(md5(uniqid(rand(), true)));
-        $uuid = substr($charid, 0, 8)
-            .substr($charid, 8, 4)
-            .substr($charid,12, 4)
-            .substr($charid,16, 4)
-            .substr($charid,20,12);
-        $result = $uuid;
-    }
-	return $result;
+	mt_srand((double)microtime()*10000);
+	return strtoupper(md5(uniqid(rand(), true)));
 }
 
 function convertToSettings( $flatSettings )
@@ -187,15 +173,5 @@ function convertToTableSettings( $flatSettings )
 function getTeamNames( $teamNames )
 {
 	return explode( ",", $teamNames );
-}
-
-
-/********************OTHER********************/
-
-
-function getPlayers()
-{
-	//todo - Read from somewhere?
-	return array("Stephen Crouch", "Daniel Crouch", "Michael Crouch", "Tina Crouch", "Jimmy Crouch", "Lauren Crouch", "Crystal Crouch", "Sarah Crouch", "James Crouch", "Elizabeth Crouch", "Lily Crouch");
 }
 ?>

@@ -268,6 +268,68 @@ function getTableSettings( $memberId )
     return convertToTableSettings( $result->fetch_assoc() );
 }
 
+function getPlayers()
+{
+	//todo - Read from somewhere
+	return [
+	    [
+	        "value" => 100,
+	        "position" => "lb",
+	        "name" => "Stephen Crouch"
+        ],
+        [
+            "value" => 101,
+            "position" => "dl",
+            "name" => "Daniel Crouch"
+        ],
+        [
+            "value" => 102,
+            "position" => "dst",
+            "name" => "Michael Crouch"
+        ],
+        [
+            "value" => 103,
+            "position" => "k",
+            "name" => "Tina Crouch"
+        ],
+        [
+            "value" => 104,
+            "position" => "te",
+            "name" => "Jimmy Crouch"
+        ],
+        [
+            "value" => 105,
+            "position" => "rb",
+            "name" => "Lauren Crouch"
+        ],
+        [
+            "value" => 106,
+            "position" => "rb",
+            "name" => "Crystal Crouch"
+        ],
+        [
+            "value" => 107,
+            "position" => "wr",
+            "name" => "Sarah Crouch"
+        ],
+        [
+            "value" => 108,
+            "position" => "wr",
+            "name" => "James Crouch"
+        ],
+        [
+            "value" => 109,
+            "position" => "qb",
+            "name" => "Elizabeth Crouch"
+        ],
+        [
+            "value" => 110,
+            "position" => "qb",
+            "name" => "Lily Crouch"
+        ]
+    ];
+}
+
 function getMySql()
 {
     $mysqli = new mysqli( 'localhost', 'religiv3_admin', '1corinthians3:9', 'religiv3_football' );

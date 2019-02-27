@@ -1,4 +1,5 @@
 <?php include("$_SERVER[DOCUMENT_ROOT]/php/startup.php"); ?>
+<?php include_once( "php/utility.php" ); ?>
 <!DOCTYPE html>
 <html>
 <head>

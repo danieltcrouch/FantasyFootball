@@ -106,6 +106,7 @@ function generateTables( $tableSettings, $sectionMax = 3 )
         }
    		echo "</table></div>\n";
    	}
+    echo "</div>\n\n";
 }
 
 ?>
