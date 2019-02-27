@@ -330,6 +330,24 @@ function getPlayers()
     ];
 }
 
+function getOptimalPlayer( $currentDraft )
+{
+    //todo
+    $availablePlayers = array_filter( getPlayers(), function( $playerId ) use( &$currentDraft ) { return !in_array( $playerId, $currentDraft->usedPlayers ); }, ARRAY_FILTER_USE_KEY );
+
+    $optimalPlayerId = null;
+    $optimalPlayerValue = -1;
+    foreach( $availablePlayers as $id => $player )
+    {
+        if ( $player["value"] > $optimalPlayerValue )
+        {
+            $optimalPlayerId = $id;
+            $optimalPlayerValue = $player["value"];
+        }
+    }
+    return $optimalPlayerId;
+}
+
 function getMySql()
 {
     $mysqli = new mysqli( 'localhost', 'religiv3_admin', '1corinthians3:9', 'religiv3_football' );

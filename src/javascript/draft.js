@@ -3,6 +3,8 @@ var players;
 
 var activeTeam;
 
+var usedPlayers;
+
 var FINAL_PICK;
 var MAX_PLAYERS;
 
@@ -40,8 +42,9 @@ function loadPlayers()
         },
         function ( response ) {
             players = JSON.parse( response );
+            usedPlayers = [];
 
-            setPlayerHandler();
+            setPlayerInputHandler();
             setDraftType( settings.general.draftType );
         }
     );
@@ -98,10 +101,13 @@ function initializeStandard()
 function submitPlayerPick()
 {
    var player = $("#player").val().trim();
-   if ( isValidPlayerPick( player ) )
+   var playerId = getPlayerIdFromName( player );
+   if ( isValidPlayerPick( playerId ) )
    {
-       insertPlayer( player );
-       players.splice( players.indexOf(player), 1 );
+       insertPlayer( playerId );
+       usedPlayers.push( playerId );
+       players.splice( players.indexOf(playerId), 1 );
+       updatePlayerInputAutocomplete();
        getNextPick();
    }
    else
@@ -112,6 +118,9 @@ function submitPlayerPick()
 
 function insertPlayer( player )
 {
+    $( "#player_0_cell_0-0" ).html( players[player].name );
+    $( "#player_0_cell_0-0" ).css( "color", "red" );
+
    //todo - get player position
    //place player in that cell
    //else place in bench
@@ -187,18 +196,34 @@ function updateUserAssets( money )
 /********************OPTIMIZE********************/
 
 
-function updateOptimal()
+function getOptimalPlayer( callback )
 {
-    var player = getOptimalPlayer( players );
+    var currentDraft = JSON.stringify( {
+        usedPlayers: usedPlayers
+    } );
 
-    $("#player").val( player );
-   	$("#player").focus();
-    $("#optimalPlayer").text( player );
+    $.post(
+        "php/controller.php",
+        {
+            action: "getOptimalPlayer",
+            currentDraft: currentDraft
+        },
+        callback
+    );
 }
 
-function getOptimalPlayer() //todo - this needs to be AJAX call done server-side
+function updateOptimal()
 {
-    return ( players ) ? players[Math.floor(Math.random()*players.length)] : null;
+    getOptimalPlayer( updateOptimalCallback );
+}
+
+function updateOptimalCallback( response )
+{
+    var result = response ? players[response].name : "No Optimal Player Found";
+    $("#optimalPlayer").text( result );
+
+    fillOptimalPlayer();
+    $("#player").focus();
 }
 
 function fillOptimalPlayer()
@@ -206,14 +231,34 @@ function fillOptimalPlayer()
     $("#player").val( $("#optimalPlayer").text().trim() );
 }
 
-function getAvailablePlayers()
+
+/********************OTHER********************/
+
+
+function getAvailablePlayerIds()
 {
-	return players;
+	return getPlayerIds().filter(function(id){ return !usedPlayers.includes(id); });
 }
 
-function isValidPlayerPick()
+function getAvailablePlayers()
 {
-    return true;
+    var playerIds = getAvailablePlayerIds();
+	return players.filter(function(value,key){ return playerIds.includes(key); });
+}
+
+function getPlayerIds()
+{
+    return Object.keys(players);
+}
+
+function getPlayerIdFromName( playerName )
+{
+    return getPlayerIds().find( key => players[key].name === playerName );
+}
+
+function isValidPlayerPick( playerId )
+{
+    return getPlayerIds().includes( playerId );
 }
 
 function displayInfo()

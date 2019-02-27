@@ -17,6 +17,11 @@ if ( isset( $_POST['action'] ) && function_exists( $_POST['action'] ) )
 		$settings = json_decode( $_POST['settings'] );
 		$result = $action( $settings );
 	}
+	elseif ( isset( $_POST['currentDraft'] )  )
+	{
+		$currentDraft = json_decode( $_POST['currentDraft'] );
+		$result = $action( $currentDraft );
+	}
 	elseif ( isset( $_POST['memberId'] ) )
 	{
 		$result = $action( $_POST['memberId'] );
