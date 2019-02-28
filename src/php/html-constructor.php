@@ -101,7 +101,8 @@ function generateTables( $tableSettings, $sectionMax = 3 )
             $positionCount = $tableSettings['positions'][$positionTitles[$positionIndex]];
             for ( $positionCountIndex = 0; $positionCountIndex < $positionCount; $positionCountIndex++ )
             {
-                echo "   <tr><td id='player_$teamIndex" . "_cell_$positionTitles[$positionIndex]$positionCountIndex' class='empty'> " . strtoupper( $positionTitles[$positionIndex] ) . " </td></tr>\n";
+                $position = str_replace( '-', '', $positionTitles[$positionIndex] );
+                echo "   <tr><td id='player_$teamIndex" . "_cell_$position$positionCountIndex' class='empty'> " . strtoupper( $positionTitles[$positionIndex] ) . " </td></tr>\n";
             }
         }
    		echo "</table></div>\n";

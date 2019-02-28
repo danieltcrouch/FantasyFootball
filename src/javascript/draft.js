@@ -98,7 +98,7 @@ function getMaxPlayers( league )
     var result = 0;
     for ( let pos of Object.keys( league ) )
     {
-        result += league[pos];
+        result += parseInt( league[pos] );
     }
     return result;
 }
@@ -123,7 +123,7 @@ class Team
     {
         this.index = 0;
         this.name = name || ("Team " + this.index);
-        this.positions = leaguePositions;
+        this.positions = Object.assign( {}, leaguePositions );
         this.playerIds = [];
     }
 
@@ -132,30 +132,52 @@ class Team
         var result = "qb0";
         if ( this.playerIds.length < MAX_PLAYERS )
         {
-            var position = null;
-            if ( this.positions[player.position] > 0 )
-            {
-                position = player.position;
-            }
-            else if ( this.positions["bench"] > 0 )
-            {
-                position = "bench";
-            }
-
-            if ( position == null )
-            {
-                for ( let pos of Object.keys( this.positions ) )
-                {
-                    if ( this.positions[pos] > 0 )
-                    {
-                        position = pos;
-                        break;
-                    }
-                }
-            }
-
+            var position = Team.getPosition( this.positions, player.position );
             var index = settings.league[position] - this.positions[position];
             result = "" + position + index;
+        }
+
+        return result;
+    }
+
+    static getPosition( positions, position )
+    {
+        var result = null;
+        if ( positions[position] > 0 )
+        {
+            result = position;
+        }
+
+        if ( result == null )
+        {
+            for ( let pos of Object.keys( positions ) )
+            {
+                if ( pos.toLowerCase().includes( position ) && positions[pos] > 0 )
+                {
+                    result = pos;
+                    break;
+                }
+            }
+        }
+
+        if ( result == null )
+        {
+            if ( positions["bench"] > 0 )
+            {
+                result = "bench";
+            }
+        }
+
+        if ( result == null )
+        {
+            for ( let pos of Object.keys( positions ) )
+            {
+                if ( positions[pos] > 0 )
+                {
+                    result = pos;
+                    break;
+                }
+            }
         }
 
         return result;
@@ -301,7 +323,7 @@ function updateOptimal()
 
 function updateOptimalCallback( response )
 {
-    var result = response ? players[response].name : "No Optimal Player Found";
+    var result = players[response] ? players[response].name : "No Optimal Player Found";
     $("#optimalPlayer").text( result );
 
     fillOptimalPlayer();
@@ -320,7 +342,6 @@ function fillOptimalPlayer()
 function updatePlayerList( playerId )
 {
     usedPlayers.push( playerId );
-    players.splice( players.indexOf(playerId), 1 );
     updatePlayerInputAutocomplete();
 }
 
@@ -354,7 +375,7 @@ function displayInfo()
 {
     var player = players[ getPlayerIdFromName( $("#player").val() ) ];
     var playerInfo = "<strong>Name:</strong> " + player.name +
-                     " <br/><strong>Position:</strong> " + player.position +
+                     " <br/><strong>Position:</strong> " + player.position.toUpperCase() +
                      " <br/><strong>Value:</strong> " + player.value +
                      " <br/><img src='" + player.image + "' height='300px' alt='Profile'>";
     showMessage( "Player Info", playerInfo );
