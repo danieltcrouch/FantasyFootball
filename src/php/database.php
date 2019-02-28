@@ -1,6 +1,17 @@
 <?php
 include_once( "utility.php" );
 
+function getColumns( $firstRow )
+{
+    $result['iIndex'] = array_search( "ID", $firstRow, true );
+    $result['nIndex'] = array_search( "Name", $firstRow, true );
+    $result['pIndex'] = array_search( "Position", $firstRow, true );
+    $result['vIndex'] = array_search( "Value", $firstRow, true );
+    $result['imgIndex'] = array_search( "Image", $firstRow, true );
+
+    return $result;
+}
+
 function saveDraftSettings( $settings )
 {
 	$mysqli = getMySql();
@@ -271,63 +282,27 @@ function getTableSettings( $memberId )
 function getPlayers()
 {
 	//todo - Read from somewhere
-	return [
-	    [
-	        "value" => 100,
-	        "position" => "lb",
-	        "name" => "Stephen Crouch"
-        ],
-        [
-            "value" => 101,
-            "position" => "dl",
-            "name" => "Daniel Crouch"
-        ],
-        [
-            "value" => 102,
-            "position" => "dst",
-            "name" => "Michael Crouch"
-        ],
-        [
-            "value" => 103,
-            "position" => "k",
-            "name" => "Tina Crouch"
-        ],
-        [
-            "value" => 104,
-            "position" => "te",
-            "name" => "Jimmy Crouch"
-        ],
-        [
-            "value" => 105,
-            "position" => "rb",
-            "name" => "Lauren Crouch"
-        ],
-        [
-            "value" => 106,
-            "position" => "rb",
-            "name" => "Crystal Crouch"
-        ],
-        [
-            "value" => 107,
-            "position" => "wr",
-            "name" => "Sarah Crouch"
-        ],
-        [
-            "value" => 108,
-            "position" => "wr",
-            "name" => "James Crouch"
-        ],
-        [
-            "value" => 109,
-            "position" => "qb",
-            "name" => "Elizabeth Crouch"
-        ],
-        [
-            "value" => 110,
-            "position" => "qb",
-            "name" => "Lily Crouch"
-        ]
-    ];
+
+    $players = array();
+    $file = fopen( "../resources/players.csv", "r" );
+    $columns = getColumns( fgetcsv( $file ) );
+
+    $index = 0;
+    $row = fgetcsv( $file );
+    while ( $row !== false )
+    {
+        $players[$index] = [
+            "name"      => $row[$columns['nIndex']],
+            "position"  => $row[$columns['pIndex']],
+            "value"     => $row[$columns['vIndex']],
+            "image"     => $row[$columns['imgIndex']]
+        ];
+        $row = fgetcsv( $file );
+        $index++;
+    }
+
+    fclose( $file );
+    return $players;
 }
 
 function getOptimalPlayer( $currentDraft )

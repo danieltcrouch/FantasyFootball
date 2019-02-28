@@ -1,12 +1,13 @@
 var settings;
 var players;
 
-var activeTeam;
+var activeTeamIndex;
+var teams;
 
 var usedPlayers;
 
-var FINAL_PICK;
 var MAX_PLAYERS;
+var FINAL_PICK;
 
 function loadSettings( memberId )
 {
@@ -20,7 +21,11 @@ function loadSettings( memberId )
             },
             function ( response ) {
                 settings = JSON.parse( response );
-                MAX_PLAYERS = 3; //<?php echo getPlayerCountFromPositions( $settings['league'] ); ?>
+
+                activeTeamIndex = -1;
+                teams = generateTeams( settings.teams, settings.league );
+
+                MAX_PLAYERS = getMaxPlayers( settings.league );
                 FINAL_PICK = settings.teams.count * MAX_PLAYERS;
 
                 loadPlayers();
@@ -67,7 +72,7 @@ function setPlayerInputHandler()
 
 function updatePlayerInputAutocomplete()
 {
-    var playerNames = players.map( player => player.name );
+    var playerNames = getAvailablePlayers().map( player => player.name );
     $("#player").autocomplete( {source: playerNames} );
 }
 
@@ -88,6 +93,81 @@ function setDraftType( type )
 	}
 }
 
+function getMaxPlayers( league )
+{
+    var result = 0;
+    for ( let pos of Object.keys( league ) )
+    {
+        result += league[pos];
+    }
+    return result;
+}
+
+function generateTeams( teamInfo, league )
+{
+    var teams = [];
+    for ( let i = 0; i < teamInfo.count; i++ )
+    {
+        teams.push( new Team( i, teamInfo.teamNames[i], league ) );
+    }
+    return teams;
+}
+
+
+/********************TEAM********************/
+
+
+class Team
+{
+    constructor( index, name, leaguePositions )
+    {
+        this.index = 0;
+        this.name = name || ("Team " + this.index);
+        this.positions = leaguePositions;
+        this.playerIds = [];
+    }
+
+    getPositionIndexToFill( player )
+    {
+        var result = "qb0";
+        if ( this.playerIds.length < MAX_PLAYERS )
+        {
+            var position = null;
+            if ( this.positions[player.position] > 0 )
+            {
+                position = player.position;
+            }
+            else if ( this.positions["bench"] > 0 )
+            {
+                position = "bench";
+            }
+
+            if ( position == null )
+            {
+                for ( let pos of Object.keys( this.positions ) )
+                {
+                    if ( this.positions[pos] > 0 )
+                    {
+                        position = pos;
+                        break;
+                    }
+                }
+            }
+
+            var index = settings.league[position] - this.positions[position];
+            result = "" + position + index;
+        }
+
+        return result;
+    }
+
+    addPlayer( playerId, position )
+    {
+        this.positions[position]--;
+        this.playerIds.push( playerId );
+    }
+}
+
 
 /********************STANDARD********************/
 
@@ -105,9 +185,7 @@ function submitPlayerPick()
    if ( isValidPlayerPick( playerId ) )
    {
        insertPlayer( playerId );
-       usedPlayers.push( playerId );
-       players.splice( players.indexOf(playerId), 1 );
-       updatePlayerInputAutocomplete();
+       updatePlayerList( playerId );
        getNextPick();
    }
    else
@@ -116,15 +194,19 @@ function submitPlayerPick()
    }
 }
 
-function insertPlayer( player )
+function insertPlayer( playerId )
 {
-    $( "#player_0_cell_0-0" ).html( players[player].name );
-    $( "#player_0_cell_0-0" ).css( "color", "red" );
+    var positionIndex = teams[activeTeamIndex].getPositionIndexToFill( players[playerId] );
+    var cellId = "player_" + activeTeamIndex + "_cell_" + positionIndex;
+    var cell = $( "#" + cellId );
+    cell.html( players[playerId].name );
+    cell.addClass( "full" );
 
-   //todo - get player position
-   //place player in that cell
-   //else place in bench
-   //else place in first available
+    $( ".full" ).css( "color", "black" );
+    cell.css( "color", "red" );
+
+    var position = positionIndex.replace(/[0-9]/g, "");
+    teams[activeTeamIndex].addPlayer( playerId, position );
 }
 
 function getNextPick()
@@ -158,7 +240,7 @@ function updatePickCount( pick )
     var teamIndex = pickIndex % teamCount;
     var teamName = ( teamIndex + 1 == settings.teams.userIndex ) ? "You" : settings.teams.teamNames[ teamIndex ];
     $("#team").text( teamName );
-    activeTeam = teamIndex;
+    activeTeamIndex = teamIndex;
 }
 
 
@@ -235,6 +317,13 @@ function fillOptimalPlayer()
 /********************OTHER********************/
 
 
+function updatePlayerList( playerId )
+{
+    usedPlayers.push( playerId );
+    players.splice( players.indexOf(playerId), 1 );
+    updatePlayerInputAutocomplete();
+}
+
 function getAvailablePlayerIds()
 {
 	return getPlayerIds().filter(function(id){ return !usedPlayers.includes(id); });
@@ -243,7 +332,7 @@ function getAvailablePlayerIds()
 function getAvailablePlayers()
 {
     var playerIds = getAvailablePlayerIds();
-	return players.filter(function(value,key){ return playerIds.includes(key); });
+	return players.filter(function(value,key){ return playerIds.includes(key + ""); });
 }
 
 function getPlayerIds()
@@ -263,5 +352,10 @@ function isValidPlayerPick( playerId )
 
 function displayInfo()
 {
-    showMessage( "Player Info", "Under construction..." );
+    var player = players[ getPlayerIdFromName( $("#player").val() ) ];
+    var playerInfo = "<strong>Name:</strong> " + player.name +
+                     " <br/><strong>Position:</strong> " + player.position +
+                     " <br/><strong>Value:</strong> " + player.value +
+                     " <br/><img src='" + player.image + "' height='300px' alt='Profile'>";
+    showMessage( "Player Info", playerInfo );
 }
