@@ -3,11 +3,17 @@ include_once( "utility.php" );
 
 function getColumns( $firstRow )
 {
-    $result['iIndex'] = array_search( "ID", $firstRow, true );
-    $result['nIndex'] = array_search( "Name", $firstRow, true );
-    $result['pIndex'] = array_search( "Position", $firstRow, true );
-    $result['vIndex'] = array_search( "Value", $firstRow, true );
-    $result['imgIndex'] = array_search( "Image", $firstRow, true );
+    $result['iIndex']   = array_search( "ID",       $firstRow, true );
+    $result['nIndex']   = array_search( "Name",     $firstRow, true );
+    $result['tIndex']   = array_search( "Team",     $firstRow, true );
+    $result['posIndex'] = array_search( "Pos",      $firstRow, true );
+    $result['vIndex']   = array_search( "Vor2",     $firstRow, true );
+    $result['pIndex']   = array_search( "Points",   $firstRow, true );
+    $result['cIndex']   = array_search( "Ceiling",  $firstRow, true );
+    $result['fIndex']   = array_search( "Floor",    $firstRow, true );
+    $result['aIndex']   = array_search( "AAV",      $firstRow, true );
+    $result['rIndex']   = array_search( "Risk",     $firstRow, true );
+    $result['imgIndex'] = array_search( "Image",    $firstRow, true );
 
     return $result;
 }
@@ -282,6 +288,9 @@ function getTableSettings( $memberId )
 function getPlayers()
 {
 	//todo - Read from somewhere
+    //todo - use NFL API to get player images
+    //https://api.nfl.com/docs/endpoints/profilePicture/index.html
+    //https://stackoverflow.com/questions/33489239/how-do-you-access-the-nfls-apis
 
     $players = array();
     $file = fopen( "../resources/players.csv", "r" );
@@ -293,8 +302,9 @@ function getPlayers()
     {
         $players[$index] = [
             "name"      => $row[$columns['nIndex']],
-            "position"  => $row[$columns['pIndex']],
-            "value"     => $row[$columns['vIndex']],
+            "team"      => $row[$columns['tIndex']],
+            "position"  => $row[$columns['posIndex']],
+            "value"     => $row[$columns['pIndex']],
             "image"     => $row[$columns['imgIndex']]
         ];
         $row = fgetcsv( $file );

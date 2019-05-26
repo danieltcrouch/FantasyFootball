@@ -143,6 +143,8 @@ class Team
     static getPosition( positions, position )
     {
         var result = null;
+
+        position = position.toString().toLowerCase();
         if ( positions[position] > 0 )
         {
             result = position;
@@ -374,9 +376,10 @@ function isValidPlayerPick( playerId )
 function displayInfo()
 {
     var player = players[ getPlayerIdFromName( $("#player").val() ) ];
+    var image = player.image || "resources/unknown.png";
     var playerInfo = "<strong>Name:</strong> " + player.name +
-                     " <br/><strong>Position:</strong> " + player.position.toUpperCase() +
+                     " <br/><strong>Position:</strong> " + player.position +
                      " <br/><strong>Value:</strong> " + player.value +
-                     " <br/><img src='" + player.image + "' height='300px' alt='Profile'>";
+                     " <br/><img src='" + image + "' height='300px' alt='Profile'>";
     showMessage( "Player Info", playerInfo );
 }

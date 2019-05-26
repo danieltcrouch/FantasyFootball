@@ -86,7 +86,7 @@ function constructInputs( $isNewTable, $line )
     return $isNewTable;
 }
 
-function generateTables( $tableSettings, $sectionMax = 3 )
+function generateTables( $tableSettings )
 {
     $positionTitles = array_keys( $tableSettings['positions'] );
 
