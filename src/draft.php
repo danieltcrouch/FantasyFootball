@@ -21,9 +21,9 @@ validateMemberId( $_SESSION['memberId'] );
     <div class="col-10 header">
         <div class="title center"><span class="clickable">
             Draft Center
-            <img style="width: .5em; padding-bottom: .25em" src="<?php getHelpImage() ?>" alt="help">
+            <img id="helpIcon" style="width: .5em; padding-bottom: .25em" src="<?php getHelpImage() ?>" alt="help">
         </span></div>
-        <div id="instructions" style="display: none">
+        <div id="helpText" style="display: none">
             ...
         </div>
     </div>

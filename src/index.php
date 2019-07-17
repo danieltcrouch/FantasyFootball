@@ -13,9 +13,9 @@
     <div class="col-10 header">
         <div class="title center"><span class="clickable">
             Fantasy Value Draft
-            <img style="width: .5em; padding-bottom: .25em" src="<?php getHelpImage() ?>" alt="help">
+            <img id="helpIcon" style="width: .5em; padding-bottom: .25em" src="<?php getHelpImage() ?>" alt="help">
         </span></div>
-        <div id="instructions" style="display: none">
+        <div id="helpText" style="display: none">
             Use this Fantasy Football Draft tool to determine the most efficient draft picks. Compare this tool to <a class="link" href="http://fantasyfootballanalytics.net/">FantasyFootballAnalytics</a>.
         </div>
     </div>
