@@ -15,7 +15,7 @@ function autoFill()
                 "php/controller.php",
                 {
                     action: 	"getDraftSettings",
-                    memberId:	answer ? "_ppr_" : "_nonppr_"
+                    memberId:	answer === 0 ? "_ppr_" : "_nonppr_"
                 },
                 function ( response ) {
                     response = JSON.parse( response );
